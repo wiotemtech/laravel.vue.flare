@@ -1,0 +1,13 @@
+/* resources/css/global.css */
+html,
+body {
+                                                                                                    font-family: "Segoe UI", sans-serif;
+                                                                                                    background-color: white;
+                                                                                                    color: #333;
+                                                                                                    margin: 0;
+                                                                                                    padding: 0;
+                                                                                                    box-sizing: border-box;
+                                                                                                    overflow-x: hidden;
+                                                                                                    /* Prevent horizontal scroll */
+                                                                                                    width: 100%;
+}
