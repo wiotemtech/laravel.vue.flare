@@ -11,14 +11,14 @@ const slides = ref([
 const texts = ref([
     {
         title: " UNITE WITH US TO SCULPT A LEGACY OF GLOBAL PROGRESS",
-        subtitle: "Your health, our priority",
+        subtitle: "Together we can make a difference",
     },
     {
         title: "JOIN OUR MISSION TO FORGE EDURING PROGRESS",
         subtitle: "Support sustainable growth and self-reliance",
     },
     {
-        title: "UNITE WITH US TO CREATE AN EPOACH OF TRANSFORMATIVE IMPACT",
+        title: "UNITE WITH US TO CREATE AN EPOCH OF TRANSFORMATIVE IMPACT",
         subtitle: "So let's do it!",
     },
 ]);
@@ -163,7 +163,7 @@ html {
 }
 
 .text-overlay h1 {
-    font-size: 60px;
+    font-size: 55px;
     font-weight: bolder;
 
     margin-bottom: 15px;

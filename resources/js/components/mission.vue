@@ -1,14 +1,12 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
-
 const props = defineProps({
     isDarkMode: {
         type: Boolean,
         default: false
     }
 });
-
 
 const cardsData = ref([
     {
@@ -25,44 +23,42 @@ const cardsData = ref([
     }
 ]);
 
-
 const cardRefs = ref([]); 
+// We'll store a reactive state for whether each card should be visible
+const cardVisibility = ref(new Array(cardsData.value.length).fill(false));
 
-let cardObservers = [];
+let cardObservers = []; // To store IntersectionObserver instances
 
 onMounted(() => {
     const observerOptions = {
-        root: null, 
+        root: null, // Observe relative to the viewport
         rootMargin: '0px',
-        threshold: 0.2 
+        threshold: 0.2 // Trigger when 20% of the item is visible
     };
 
-
     cardRefs.value.forEach((cardElement, index) => {
-      
-        cardElement.classList.add('card-animate-hidden');
+        // No need to add card-animate-hidden directly here.
+        // The default styles (opacity:0, transform:Y(50px)) in CSS handle the initial hidden state.
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                
-                
+                    // When the card enters the viewport, set its visibility to true
+                    cardVisibility.value[index] = true;
+                    // Stop observing once it's visible to prevent re-triggering
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         observer.observe(cardElement);
-        cardObservers.push(observer); 
+        cardObservers.push(observer); // Store the observer for cleanup
     });
 });
 
 onUnmounted(() => {
-
-    cardObservers.forEach((observer, index) => {
-        if (cardRefs.value[index]) {
-            observer.unobserve(cardRefs.value[index]);
-        }
+    // Disconnect all observers when the component is unmounted
+    cardObservers.forEach((observer) => {
         observer.disconnect();
     });
 });
@@ -77,6 +73,7 @@ onUnmounted(() => {
                 :key="index"
                 class="card-item"
                 :ref="el => { if (el) cardRefs[index] = el }"
+                :class="{ 'card-animate-visible': cardVisibility[index] }" 
                 :style="{ 'animation-delay': `${index * 0.2}s` }"
             >
                 <h3>{{ card.title }}</h3>
@@ -87,6 +84,13 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/*
+   IMPORTANT:
+   Remove 'opacity: 0;' and 'transform: translateY(50px);' from .card-item base style.
+   These should only be present in '.card-animate-hidden' or implicit initial states if not directly controlled.
+   Since 'card-animate-hidden' is removed, .card-item's base style will be its final state.
+   The animation class will then transition it.
+*/
 .vision-mission-motto-section {
     padding: 80px 10%;
     background-color: #eef7ee; 
@@ -95,10 +99,22 @@ onUnmounted(() => {
     text-align: center;
 }
 
+/* Ensure dark mode styles are correctly applied, if 'body.dark-theme-body' is the global class */
 body.dark-theme-body .vision-mission-motto-section {
     background-color: #111;
+}
 
-   
+body.dark-theme-body .card-item {
+    background: linear-gradient(135deg, #1e1e1e, #2a2a2a); /* Darker background for dark theme */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Adjust shadow for dark theme */
+}
+
+body.dark-theme-body .card-item p {
+    color: #eee; /* Light text color for dark theme */
+}
+
+body.dark-theme-body .card-item h3 {
+    color: #8ab4f8; /* A lighter blue for dark theme titles */
 }
 
 
@@ -110,6 +126,16 @@ body.dark-theme-body .vision-mission-motto-section {
     text-shadow: 2px 2px 5px rgba(0,0,0,0.1); 
 }
 
+/* Horizontal line for section title (added for better visual separation as common in designs) */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+
+    margin: 20px auto 0;
+    border-radius: 2px;
+}
 
 
 .cards-container {
@@ -129,21 +155,14 @@ body.dark-theme-body .vision-mission-motto-section {
     max-width: 350px; 
     text-align: left; 
     transition: all 0.4s ease-in-out; 
-    opacity: 0; 
-    transform: translateY(50px); 
     position: relative; 
     overflow: hidden; 
     border: 2px solid transparent; 
+
+    /* Initial state for animation */
+    opacity: 0;
+    transform: translateY(50px);
 }
-
-
-body.dark-theme-body .card-item {
-        background: linear-gradient(135deg, #111, #111);
-        box-shadow: 0 10px 30px rgba(200, 133, 133, 0.1);
-
-    
-}
-
 
 .card-item::before {
     content: '';
@@ -164,12 +183,20 @@ body.dark-theme-body .card-item {
     transform: scaleX(1); 
 }
 
+/* This targets the dark theme class directly on the section */
 .vision-mission-motto-section.dark-theme .card-item {
-    background: linear-gradient(135deg, #2a342c, #3a443c); /* Darker gradient */
+    background: linear-gradient(135deg, #2a342c, #3a443c); /* Darker gradient for cards in dark theme */
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     border-color: transparent; 
 }
 
+.vision-mission-motto-section.dark-theme .card-item h3 {
+    color: #8ab4f8; /* Lighter blue for titles in dark theme */
+}
+
+.vision-mission-motto-section.dark-theme .card-item p {
+    color: #eee; /* Light text for paragraphs in dark theme */
+}
 
 
 .card-item:hover {
@@ -178,46 +205,30 @@ body.dark-theme-body .card-item {
     border-color: #1e88e5; /* Add a subtle border on hover */
 }
 
-
-
 .card-item h3 {
-    font-size: 1.9em; /* Slightly larger title */
-    color: #007bff; /* Blue for card titles */
+    font-size: 1.9em; 
+    color: #007bff; 
     margin-bottom: 15px;
-    font-weight: 700; /* Bolder */
-    letter-spacing: -0.5px; /* Tighter letter spacing */
+    font-weight: 700; 
+    letter-spacing: -0.5px; 
     position: relative;
-    padding-top: 10px; /* Space from the top accent */
-    z-index: 2; /* Ensure title is above pseudo-element on hover */
+    padding-top: 10px; 
+    z-index: 2; 
 }
-
-
 
 .card-item p {
-    font-size: 1.1em; /* Slightly larger text */
+    font-size: 1.1em; 
     line-height: 1.8;
-    color: #444; /* Slightly darker text for better contrast */
-    z-index: 2; /* Ensure text is above pseudo-element on hover */
+    color: #444; 
+    z-index: 2; 
 }
 
-body.dark-theme-body .card-item p {
-    color: white;
-
-    
-}
-
-
-/* Animation classes (retained) */
-.card-animate-hidden {
-    opacity: 0;
-    transform: translateY(50px);
-}
-
+/* Animation classes */
+/* Renamed and simplified: card-animate-hidden is now implicitly the default .card-item styles */
 .card-animate-visible {
     opacity: 1;
     transform: translateY(0);
-    /* Staggered animation handled via inline style animation-delay */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    /* Transition applied directly to card-item, animation-delay via inline style */
 }
 
 /* Responsive adjustments */
@@ -233,7 +244,7 @@ body.dark-theme-body .card-item p {
 
     .card-item {
         min-width: 250px;
-        max-width: 90%; /* Allow cards to take more width on mobile */
+        max-width: 90%; 
         padding: 25px;
     }
 
@@ -253,7 +264,7 @@ body.dark-theme-body .card-item p {
     }
 
     .card-item {
-        min-width: 200px; /* Even smaller min-width for very small screens */
+        min-width: 200px; 
         padding: 20px;
     }
 }
