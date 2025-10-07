@@ -61,8 +61,8 @@ const isDarkMode = ref(false);
                     <h6>Contact</h6>
                     <p>
                         <i class="fas fa-map-marker-alt me-2"></i>Junior
-                        Quarters,Lira city west Division,lira cityJunior
-                        Quarters,Lira city west Division,lira city
+                        Quarters,Lira city west Division
+                        
                     </p>
                     <p>
                         <i class="fas fa-envelope me-2"></i
@@ -73,12 +73,12 @@ const isDarkMode = ref(false);
                     <h5>Follow us</h5>
 
                     <div class="social-icons d-flex mt-3">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                    
+                        <a href="https://www.youtube.com/@FlareinternationalFoundati-i4y"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/in/flare-international-foundation-5a0a06380/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/FlareUG"><i class="fab fa-x-twitter"></i></a>
 
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.instagram.com/flare_ug"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@ const isDarkMode = ref(false);
         >
             <a
                 class="twitter-dm-button w3-btn w3-green floating-icon"
-                href="https://wa.me/256-778-077-765"
+                href="https://wa.me/256392995534"
             >
                 <i class="fab fa-whatsapp"></i>
             </a>

@@ -39,10 +39,20 @@ const testimonials = ref([
     embedUrl: "https://www.youtube.com/embed/cTeka5JBU-c", // Replace with your actual YouTube embed URL
     caption: "Hear the Impact on Our Community.",
   },
+    {
+    id: 2,
+    embedUrl: "https://www.youtube.com/embed/cTeka5JBU-c", // Replace with your actual YouTube embed URL
+    caption: "Hear the Impact on Our Community.",
+  },
+   {
+    id: 3,
+    embedUrl: "https://www.youtube.com/embed/XhPLo3s3ky4", // Replace with your actual YouTube embed URL
+    caption: "Empowering Education Through Donations",
+  },
   {
     id: 3,
-    embedUrl: "https://www.youtube.com/embed/XF94SGd9mN4", // Replace with your actual YouTube embed URL
-    caption: "Witness the Change We're Making.",
+    embedUrl: "https://www.youtube.com/embed/vJpZifIanAg", // Replace with your actual YouTube embed URL
+    caption: "Empowering Education Through Donations",
   },
 ]);
 </script>

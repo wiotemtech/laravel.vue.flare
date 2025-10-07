@@ -157,7 +157,7 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     margin-bottom: 30px;
-    margin-top: -113px;
+    margin-top: -13px;
 
     animation: fadeIn 1.5s ease-in;
 }

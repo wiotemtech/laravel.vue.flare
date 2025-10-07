@@ -1,7 +1,28 @@
+<template>
+  <div class="landing-container">
+    <div class="image-slider">
+      <div
+        v-for="(slide, index) in slides"
+        :key="index"
+        class="slide"
+        :class="{ active: currentIndex === index }"
+        :style="{ backgroundImage: `url(${slide.imageUrl})` }"
+      ></div>
+    </div>
+
+    <div class="content-panel">
+      <div class="text-content" :class="{ active: true }" :key="currentIndex">
+        <h1>{{ texts[currentIndex].title }}</h1>
+        <p>{{ texts[currentIndex].subtitle }}</p>
+        <button class="cta-button">DONATE NOW</button>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
 
-const isDarkMode = ref(false);
 const currentIndex = ref(0);
 const slides = ref([
     { imageUrl: "/assets/images/washing.jpg" },
@@ -10,11 +31,11 @@ const slides = ref([
 ]);
 const texts = ref([
     {
-        title: " UNITE WITH US TO SCULPT A LEGACY OF GLOBAL PROGRESS",
+        title: "BUILDING A GLOBAL PROGRESS TOGETHER",
         subtitle: "Together we can make a difference",
     },
     {
-        title: "JOIN OUR MISSION TO FORGE EDURING PROGRESS",
+        title: "JOIN OUR MISSION TO FORGE ENDURING PROGRESS",
         subtitle: "Support sustainable growth and self-reliance",
     },
     {
@@ -35,7 +56,6 @@ const stopSlider = () => {
 };
 
 const nextSlide = () => {
-    const previousIndex = currentIndex.value;
     currentIndex.value = (currentIndex.value + 1) % slides.value.length;
 };
 
@@ -48,64 +68,20 @@ onUnmounted(() => {
 });
 </script>
 
-<template>
-    <div id="app" :class="{ 'dark-theme-header': isDarkMode }">
-        <div class="landing-container">
-            <div
-                v-for="(slide, index) in slides"
-                :key="index"
-                class="slide"
-                :class="{ active: currentIndex === index }"
-                :style="{ backgroundImage: `url(${slide.imageUrl})` }"
-            ></div>
-
-            <div class="overlay"></div>
-
-            <div
-                class="text-overlay"
-                :class="{ active: true }"
-                :key="currentIndex"
-            >
-                <h1>{{ texts[currentIndex].title }}</h1>
-                <p>{{ texts[currentIndex].subtitle }}</p>
-            </div>
-        </div>
-    </div>
-</template>
-
 <style scoped>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body,
-html {
-    height: 100%;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-    background-color: #f4f4f4;
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.dark-theme-header body,
-.dark-theme-header html {
-    background-color: #121212;
-    color: #eee;
-}
-
-#app.dark-theme-header {
-    background-color: #121212;
-    color: #eee;
-}
-
 .landing-container {
-    position: relative;
-    height: 70vh;
-    margin-top: -120px;
+    display: flex;
+    height: 75vh;
     width: 100%;
+    
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color:#1e88e5;
+}
+
+.image-slider {
+    position: relative;
+    flex-basis: 60%;
     overflow: hidden;
 }
 
@@ -119,104 +95,97 @@ html {
     background-position: center;
     opacity: 0;
     transition: opacity 1s ease-in-out;
-    z-index: 0;
+    transform: scale(1.0);
+    animation: panZoom 8s ease-in-out infinite alternate;
 }
 
 .slide.active {
     opacity: 1;
-    z-index: 1;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-    pointer-events: none;
-}
-
-.text-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #fff;
-    text-align: center;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    padding: 0 20px;
-    max-width: 100vw;
-
+.content-panel {
+    flex-basis: 40%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.08); /* Frosted Glass Background */
+    backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.text-overlay.active {
+.text-content {
+    text-align: left;
+    max-width: 500px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.text-content.active {
     opacity: 1;
 }
 
-.text-overlay h1 {
-    font-size: 55px;
-    font-weight: bolder;
-
-    margin-bottom: 15px;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+h1 {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
     opacity: 0;
-    transform: translateX(-100%);
+    transform: translateY(20px);
 }
 
-.dark-theme-header .text-overlay h1 {
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.9);
-}
-
-.text-overlay p {
-    font-size: 3.2rem;
-    font-weight: bolder;
-
-    margin-bottom: 25px;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+p {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateY(20px);
 }
 
-.dark-theme-header .text-overlay p {
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+.cta-button {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(45deg, #007bff, #005c99);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: scale(0.9);
 }
 
-.text-overlay.active h1 {
-    animation: slideInLeft 1s forwards;
+.cta-button:hover {
+    background: linear-gradient(45deg, #005c99, #003366);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.text-overlay.active p {
-    animation: slideUp 1s 0.3s forwards;
+.text-content.active h1 {
+    animation: fadeInUp 1s forwards;
 }
 
-.text-overlay.active .donate-button {
-    animation: fadeInScale 1s 0.6s forwards;
+.text-content.active p {
+    animation: fadeInUp 1s 0.3s forwards;
 }
 
-@keyframes slideInLeft {
+.text-content.active .cta-button {
+    animation: fadeInUp 1s 0.6s forwards;
+}
+
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateX(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(100%);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -224,47 +193,35 @@ html {
     }
 }
 
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
+@keyframes panZoom {
+    0% {
         transform: scale(1);
     }
-}
-
-@media (max-width: 768px) {
-    .text-overlay h1 {
-        font-size: 35px;
-
-        margin-bottom: 10px;
-    }
-
-    .text-overlay p {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
-
-    .donate-button {
-        padding: 12px 25px;
-        font-size: 1rem;
+    100% {
+        transform: scale(1.05);
     }
 }
 
-@media (max-width: 480px) {
-    .text-overlay h1 {
-        font-size: 28px;
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .landing-container {
+        flex-direction: column;
+        margin-top: 33px;
+        height: 100vh;
     }
 
-    .text-overlay p {
-        font-size: 1.2rem;
+    .image-slider {
+        flex-basis: 50vh;
+        width: 100%;
     }
 
-    .donate-button {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+    .content-panel {
+        flex-basis: auto;
+        width: 100%;
+        padding: 2rem;
+        background-color: #1e88e5;
+        backdrop-filter: none;
+        border-left: none;
     }
 }
 </style>

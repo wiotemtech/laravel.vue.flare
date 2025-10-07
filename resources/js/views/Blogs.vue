@@ -138,6 +138,19 @@ Our carpentry training program has empowered over 15 young men with skills that 
         date: "2023-02-07",
         imageUrl: "/assets/images/wash4.jpg",
     },
+     {
+        id: "3",
+        title: "Empowering Education Through Donations",
+        excerpt:"At Flare International Foundation, we believe that every child deserves access to quality learning materials. Our recent initiative focused on donating books and pens to pupils in local schools. By providing these essential tools",
+        fullText: `At Flare International Foundation, we believe that every child deserves access to quality learning materials. Our recent initiative focused on donating books and pens to pupils in local schools. By providing these essential tools, we aim to ignite curiosity, foster creativity, and support students in reaching their full potential.
+
+Education is the foundation of a brighter future, and small contributions like a pen or a book can make a big difference. We are committed to continuing our efforts to empower young minds and create opportunities for lifelong learning.
+
+Join us in spreading knowledge and hope—because every child’s education matters.`, // Expanded content for scrolling
+        author: "Christine Atim",
+        date: "2025-09-17",
+        imageUrl: "/assets/images/oj4.jpg",
+    },
 ]);
 </script>
 
@@ -153,7 +166,7 @@ Our carpentry training program has empowered over 15 young men with skills that 
     align-items: center;
     justify-content: center;
     margin-bottom: 30px;
-    margin-top: -113px;
+    margin-top: -13px;
 
     animation: fadeIn 1.5s ease-in;
 }

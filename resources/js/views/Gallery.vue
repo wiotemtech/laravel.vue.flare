@@ -5,11 +5,17 @@ export default {
         return {
             isDarkMode: false,
             images: [
+                { src: "/assets/images/oj2.jpg", alt: "Gallery Image 1" },
+                { src: "/assets/images/oj.jpg", alt: "Gallery Image 2" },
+                { src: "/assets/images/oj4.jpg", alt: "Gallery Image 3" },
                 { src: "/assets/images/wash1.jpg", alt: "Gallery Image 1" },
                 { src: "/assets/images/cap2.jpg", alt: "Gallery Image 2" },
+                { src: "/assets/images/oj3.jpg", alt: "Gallery Image 1" },
                 { src: "/assets/images/cap1.jpg", alt: "Gallery Image 3" },
                 { src: "/assets/images/wash5.jpg", alt: "Gallery Image 4" },
                 { src: "/assets/images/tree1.jpg", alt: "Gallery Image 5" },
+                
+                { src: "/assets/images/oj6.jpg", alt: "Gallery Image 3" },
                 { src: "/assets/images/tree3.jpg", alt: "Gallery Image 6" },
                 { src: "/assets/images/tree2.jpg", alt: "Gallery Image 7" },
                 { src: "/assets/images/wash2.jpg", alt: "Gallery Image 8" },
@@ -17,6 +23,7 @@ export default {
                 { src: "/assets/images/cap3.jpg", alt: "Gallery Image 10" },
                 { src: "/assets/images/cap4.jpg", alt: "Gallery Image 9" },
                 { src: "/assets/images/wash4.jpg", alt: "Gallery Image 10" },
+                
             ],
             showPopup: false,
             shownOnce: false,
@@ -133,7 +140,7 @@ export default {
     align-items: center;
     justify-content: center;
     margin-bottom: 30px;
-    margin-top: -113px;
+    margin-top: -13px;
 
     animation: fadeIn 1.5s ease-in;
 }
