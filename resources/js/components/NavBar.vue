@@ -197,7 +197,7 @@ export default {
                 >
                     <i :class="isDarkMode ? 'bx bx-sun' : 'bx bx-moon'"></i>
                     <span class="theme-label">{{
-                        isDarkMode ? "Light Mode" : "Dark Mode"
+                        isDarkMode ? "" : ""
                     }}</span>
                 </button>
             </nav>
@@ -435,19 +435,20 @@ body.dark-theme-body .logo-text {
 
 .theme-toggle {
     background: none;
-    border: 2px solid white;
+   
     padding: 2px 3px;
     border-radius: 10px;
     color: white;
-    font-size: 28px;
+    font-size: 33px;
     cursor: pointer;
     outline: none;
     transition: color 0.3s ease;
 }
 
 .theme-toggle:hover {
-    background-color: white;
-    color: #1e88e5;
+    
+    
+    
 }
 
 .theme-label {
@@ -563,6 +564,7 @@ body.dark-theme-body .custom-dropdown-toggle {
         padding: 10px 5%;
         font-size: 0.95em;
         min-height: auto;
+       
     }
 
     .top-header-left-info,
@@ -603,13 +605,14 @@ body.dark-theme-body .custom-dropdown-toggle {
         position: absolute;
         top: 100%;
         left: 0;
+        
         width: 100%;
         background-color: white;
         flex-direction: column;
         align-items: center;
         overflow: hidden;
         display: none;
-        border-top: 1px solid #eee;
+      
     }
 
     .navbar-brand.logo {
