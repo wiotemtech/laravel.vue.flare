@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
                     :class="{ 'dark-theme-logo': isDarkMode }"
                 >
                     <img
-                        src="/assets/images/logo1.jpg"
+                        src="/assets/images/logo1.JPG"
                         alt="Flare Logo"
                         class="logo-img"
                     />
