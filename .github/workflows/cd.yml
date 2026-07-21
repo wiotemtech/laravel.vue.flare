@@ -50,7 +50,6 @@ jobs:
       - name: Build Vite Assets
         run: npm run build
 
-        
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -58,6 +57,7 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: flareinternationalfoundation.org/
+          protocol: ftp
           
           exclude: |
             **/.git*
