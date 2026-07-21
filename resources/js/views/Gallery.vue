@@ -201,7 +201,7 @@ onUnmounted(() => {
 .hero-bg-media {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/images/fight.jpg');
+  background-image: url('/public/assets/images/fight.jpg');
   background-size: cover;
   background-position: center;
   opacity: 0.45; 
@@ -283,7 +283,7 @@ onUnmounted(() => {
   --brand-accent: #004ad7;
   
   /* Replace this path with your actual contact page hero background image file */
-  --hero-bg-img: url('/assets/images/fight.jpg');
+  --hero-bg-img: url('/public/assets/images/fight.jpg');
   --hero-fallback-bg: #0f172a;
   --hero-text: #ffffff;
   --hero-muted: #cbd5e1;

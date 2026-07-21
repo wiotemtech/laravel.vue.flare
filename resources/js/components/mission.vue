@@ -67,7 +67,7 @@ onUnmounted(() => {
     <section 
         class="vision-mission-motto-section" 
         :class="{ 'dark-theme': props.isDarkMode }"
-        style="background-image: url('/assets/images/pupils.jpg');"
+        style="background-image: url('/public/assets/images/pupils.jpg');"
     >
         <div class="section-overlay"></div>
 

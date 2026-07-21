@@ -15,7 +15,7 @@
                 <div class="brand-column">
                     <div class="logo-group">
                         <img
-                            src="/public/assets/images/logo1.jpg"
+                            src="/public/assets/images/logo1.JPG"
                             alt="Flare Logo"
                             class="brand-logo"
                         />

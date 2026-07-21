@@ -2,7 +2,7 @@
   <section 
     class="testimonials-section" 
     :class="{ 'dark-theme': props.isDarkMode }"
-    style="background-image: url('/assets/images/won.jpg');"
+    style="background-image: url('/public/assets/images/won.jpg');"
   >
     <!-- Dark, warm gradient overlay to guarantee perfect text contrast and make the videos pop -->
     <div class="section-overlay"></div>

@@ -35,7 +35,7 @@ const submitForm = () => {
 <template>
      <section
             :class="{ 'dark-theme-events': isDarkMode }"
-            style="background-image: url('/assets/images/flare.png')"
+            style="background-image: url('/public/assets/images/flare.png')"
             class="landing-section"
         >
             <div class="overlay"></div>

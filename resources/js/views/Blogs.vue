@@ -280,7 +280,7 @@ const getBadgeClass = (category) => {
 .hero-bg-media {
     position: absolute;
     inset: 0;
-    background-image: url('/assets/images/fight.jpg');
+    background-image: url('/public/assets/images/fight.jpg');
     background-size: cover;
     background-position: center;
     opacity: 0.25; 
