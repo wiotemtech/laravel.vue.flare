@@ -15,33 +15,51 @@ const teamMembers = ref([
         position: "Founder & Executive Director",
         photo: "/assets/images/jes.jpeg",
         socialMedia: [
-            { icon: "fab fa-linkedin", url: "#" },
-            { icon: "fab fa-twitter", url: "#" },
-            { icon: "fab fa-facebook", url: "#" },
+            { icon: "fab fa-linkedin-in", url: "#" },
+            { icon: "fab fa-x-twitter", url: "#" },
+            { icon: "fab fa-facebook-f", url: "#" },
+            { icon: "fab fa-instagram", url: "#" },
         ],
-        bio: "A preeminent businessman and ICT authority, I founded Flare International Foundation in 2019, inspired by a lifelong commitment to global empowerment. With visionary leadership, I orchestrate transformative initiatives in technology, education, and environmental sustainability, advancing equity for children, women, youth, and individuals with disabilities worldwide.Unite with us to forge an epoch of transformative impact.",
+        bio: "A preeminent businessman and ICT authority, I founded Flare International Foundation in 2019, inspired by a lifelong commitment to global empowerment. With visionary leadership, I orchestrate transformative initiatives in technology, education, and environmental sustainability, advancing equity for children, women, youth, and individuals with disabilities worldwide. Unite with us to forge an epoch of transformative impact.",
     },
     {
         id: 2,
         name: "Christine Atim",
-        position: " co-founder",
+        position: "Co-Founder",
         photo: "/assets/images/atim.jpeg",
         socialMedia: [
-            { icon: "fab fa-linkedin", url: "#" },
+            { icon: "fab fa-linkedin-in", url: "#" },
+            { icon: "fab fa-x-twitter", url: "#" },
+            { icon: "fab fa-facebook-f", url: "#" },
             { icon: "fab fa-instagram", url: "#" },
         ],
-        bio: "An eminent public administrator and distinguished banker, I co-founded Flare International Foundation in 2019, propelled by an enduring vision for global transformation. With unparalleled strategic acumen, I advance pioneering initiatives in technology, education, and sustainable development, empowering children, women, youth, and individuals with disabilities worldwide.Unite with us to sculpt a legacy of global progress.",
+        bio: "An eminent public administrator and distinguished banker, I co-founded Flare International Foundation in 2019, propelled by an enduring vision for global transformation. With unparalleled strategic acumen, I advance pioneering initiatives in technology, education, and sustainable development, empowering children, women, youth, and individuals with disabilities worldwide. Unite with us to sculpt a legacy of global progress.",
     },
     {
         id: 3,
         name: "Akello Norbert Marry",
-        position: "co-founder and Program Manager",
+        position: "Co-Founder & Program Manager",
         photo: "/assets/images/marry.jpeg",
         socialMedia: [
-            { icon: "fab fa-facebook", url: "#" },
-            { icon: "fab fa-twitter", url: "#" },
+            { icon: "fab fa-linkedin-in", url: "#" },
+            { icon: "fab fa-x-twitter", url: "#" },
+            { icon: "fab fa-facebook-f", url: "#" },
+            { icon: "fab fa-instagram", url: "#" },
         ],
-        bio: "A consummate public administrator, I co-founded Flare International Foundation in 2019, driven by an unwavering dedication to global empowerment. With exemplary leadership, I direct transformative initiatives in sustainable development, education, and social equity, uplifting children, women, youth, and individuals with disabilities worldwide.Join our mission to forge enduring progress.",
+        bio: "A consummate public administrator, I co-founded Flare International Foundation in 2019, driven by an unwavering dedication to global empowerment. With exemplary leadership, I direct transformative initiatives in sustainable development, education, and social equity, uplifting children, women, youth, and individuals with disabilities worldwide. Join our mission to forge enduring progress.",
+    },
+    {
+        id: 4,
+        name: "Team Member Four",
+        position: "Executive Partner",
+        photo: "/assets/images/placeholder.jpeg",
+        socialMedia: [
+            { icon: "fab fa-linkedin-in", url: "#" },
+            { icon: "fab fa-x-twitter", url: "#" },
+            { icon: "fab fa-facebook-f", url: "#" },
+            { icon: "fab fa-instagram", url: "#" },
+        ],
+        bio: "Add the biography description here. This space acts as an elegant summary when viewing individual board members.",
     },
 ]);
 
@@ -109,98 +127,102 @@ onUnmounted(() => {
 
 <template>
     <section class="team-section" :class="{ 'dark-theme': props.isDarkMode }">
-        <h2 class="section-title">Meet Our Dedicated Team</h2>
-        <div class="team-cards-container">
-            <div
-                v-for="(member, index) in teamMembers"
-                :key="member.id"
-                class="team-member-card"
-                :ref="
-                    (el) => {
-                        if (el) cardRefs[index] = el;
-                    }
-                "
-                :style="{ 'animation-delay': `${index * 0.15}s` }"
-            >
-                <div class="member-photo-wrapper">
-                    <img
-                        :src="member.photo"
-                        :alt="member.name"
-                        class="member-photo"
-                    />
-                </div>
-                <div class="member-info">
-                    <h3 class="member-name">{{ member.name }}</h3>
-                    <p class="member-position">{{ member.position }}</p>
-                    <div class="social-links">
-                        <a
-                            v-for="(social, sIndex) in member.socialMedia"
-                            :key="sIndex"
-                            :href="social.url"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            :aria-label="
-                                member.name + ' ' + social.icon.split(' ')[1]
-                            "
-                        >
-                            <i :class="social.icon"></i>
-                        </a>
+        <div class="team-container">
+            <!-- Centered Header Section -->
+            <div class="team-header">
+                <span class="section-tagline">Leadership</span>
+                <h2 class="section-title">The Hearts Behind Our Mission</h2>
+                <p class="section-subtitle">Driving global transformation, equity, and sustainable progress.</p>
+            </div>
+
+            <!-- Team Grid Layout (4-Columns) -->
+            <div class="team-cards-container">
+                <div
+                    v-for="(member, index) in teamMembers"
+                    :key="member.id"
+                    class="team-member-card"
+                    :ref="(el) => { if (el) cardRefs[index] = el; }"
+                    :style="{ 'transition-delay': `${index * 0.08}s` }"
+                >
+                    <div class="card-bg-mesh"></div>
+                    <div class="card-corner-accent"></div>
+
+                    <!-- Shortened Image Frame -->
+                    <div class="member-photo-area" @click="openModal(member)">
+                        <div class="image-overlay-reveal">
+                            <span class="reveal-text">View Bio</span>
+                        </div>
+                        <img
+                            :src="member.photo"
+                            :alt="member.name"
+                            class="member-photo"
+                        />
                     </div>
-                    <button class="read-more-btn" @click="openModal(member)">
-                        Read More
-                    </button>
+                    
+                    <!-- Tight Content Frame -->
+                    <div class="member-info">
+                        <span class="member-position">{{ member.position }}</span>
+                        <h3 class="member-name" @click="openModal(member)">{{ member.name }}</h3>
+                        
+                        <div class="card-footer-action">
+                            <div class="social-links">
+                                <a
+                                    v-for="(social, sIndex) in member.socialMedia"
+                                    :key="sIndex"
+                                    :href="social.url"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    :aria-label="member.name + ' ' + social.icon.split(' ')[1]"
+                                >
+                                    <i :class="social.icon"></i>
+                                </a>
+                            </div>
+
+                            <button class="read-more-btn" @click="openModal(member)" aria-label="View biography">
+                                <i class="fas fa-arrow-right btn-icon"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Compact Modal Framework -->
         <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
-            <div
-                class="modal-content"
-                :class="{ 'dark-theme-modal': props.isDarkMode }"
-            >
-                <button
-                    class="close-modal-btn"
-                    @click="closeModal"
-                    aria-label="Close modal"
-                >
-                    &times;
+            <div class="modal-content" :class="{ 'dark-theme-modal': props.isDarkMode }">
+                <button class="close-modal-btn" @click="closeModal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
                 </button>
-                <div class="modal-body">
-                    <img
-                        :src="selectedTeamMember.photo"
-                        :alt="selectedTeamMember.name"
-                        class="modal-member-photo"
-                    />
-                    <h3 class="modal-member-name">
-                        {{ selectedTeamMember.name }}
-                    </h3>
-                    <p class="modal-member-position">
-                        {{ selectedTeamMember.position }}
-                    </p>
-                    <p class="modal-member-bio">{{ selectedTeamMember.bio }}</p>
-                    <div class="modal-social-links">
-                        <a
-                            v-for="(
-                                social, sIndex
-                            ) in selectedTeamMember.socialMedia"
-                            :key="sIndex"
-                            :href="social.url"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            :aria-label="
-                                selectedTeamMember.name +
-                                ' ' +
-                                social.icon.split(' ')[1]
-                            "
-                        >
-                            <i :class="social.icon"></i>
-                        </a>
+                
+                <div class="modal-grid">
+                    <div class="modal-left">
+                        <div class="modal-photo-container">
+                            <img
+                                :src="selectedTeamMember.photo"
+                                :alt="selectedTeamMember.name"
+                                class="modal-member-photo"
+                            />
+                        </div>
+                        <div class="modal-social-links">
+                            <a
+                                v-for="(social, sIndex) in selectedTeamMember.socialMedia"
+                                :key="sIndex"
+                                :href="social.url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                :aria-label="selectedTeamMember.name + ' ' + social.icon.split(' ')[1]"
+                            >
+                                <i :class="social.icon"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="modal-cancel-btn" @click="closeModal">
-                        Cancel
-                    </button>
+                    
+                    <div class="modal-right">
+                        <span class="modal-member-position">{{ selectedTeamMember.position }}</span>
+                        <h3 class="modal-member-name">{{ selectedTeamMember.name }}</h3>
+                        <div class="modal-divider"></div>
+                        <p class="modal-member-bio">{{ selectedTeamMember.bio }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -209,511 +231,465 @@ onUnmounted(() => {
 
 <style scoped>
 .team-section {
-    padding: 50px 8%;
-    background-color: #f8f8f8;
-    color: #333;
+    --primary: #1e88e5;       
+    --primary-rgb: 30, 136, 229;
+    --accent: #0f172a;        
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --section-bg: #f8fafc;
+    --card-surface: #ffffff;
+    --border-color: #e2e8f0;
+    
+    padding: 60px 0;
+    background-color: var(--section-bg);
+    color: var(--text-main);
     transition: background-color 0.4s ease, color 0.4s ease;
-    text-align: center;
-    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: relative;
 }
 
-body.dark-theme-body .team-section {
-    background-color: #111;
-}
 .team-section.dark-theme {
-    background-color: #1c2331;
-    color: #eee;
+    --primary: #38bdf8;
+    --primary-rgb: 56, 189, 248;
+    --accent: #ffffff;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --section-bg: #0f1013;
+    --card-surface: #141519;
+    --border-color: rgba(255, 255, 255, 0.06);
+}
+
+.team-container {
+    width: 100%;
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+/* Centered Header Styles */
+.team-header {
+    text-align: center;      /* Completely centers heading elements */
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;       /* Centers the container boundaries */
+    margin-right: auto;
+}
+
+.section-tagline {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--primary);
+    margin-bottom: 6px;
 }
 
 .section-title {
-    font-size: 30px;
-    font-weight: bold;
-    color: #1e88e5;
-    margin-bottom: 50px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-main);
+    margin: 0 0 8px 0;
+    letter-spacing: -0.02em;
 }
 
+.section-subtitle {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* 4-Column Grid Structure */
 .team-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 18px; 
 }
 
 .team-member-card {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 270px;
+    background-color: var(--card-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 0px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 15px 20px;
-    transition: all 0.4s ease-in-out;
-    opacity: 0;
-    transform: translateY(40px) scale(0.98);
-    text-align: center;
     position: relative;
     overflow: hidden;
-    height: 350px; /* Reduced from 420px */
-    justify-content: space-between;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
+                border-color 0.4s ease;
 }
 
-body.dark-theme-body .team-member-card {
-    background-color: #222;
+.card-bg-mesh {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background-image: linear-gradient(var(--border-color) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+    background-size: 15px 15px;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.card-corner-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 0 0;
+    border-color: transparent transparent transparent var(--primary);
+    transition: border-width 0.25s ease;
+    z-index: 5;
 }
 
 .team-member-card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08);
+    border-color: rgba(var(--primary-rgb), 0.35);
 }
 
-.team-member-card:hover .member-photo {
-    transform: scale(1.05);
+.team-section.dark-theme .team-member-card:hover {
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.4);
 }
 
-.member-photo-wrapper {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
+.team-member-card:hover .card-bg-mesh {
+    opacity: 0.15;
+}
+
+.team-member-card:hover .card-corner-accent {
+    border-width: 0 10px 10px 0;
+    border-color: transparent var(--primary) transparent transparent;
+}
+
+/* Reduced Height Aspect Ratio Box */
+.member-photo-area {
+    width: 100%;
+    aspect-ratio: 4 / 4.3; 
+    position: relative;
     overflow: hidden;
-    margin-bottom: 12px;
-    border: 2px solid red;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease-in-out;
-}
-
-.team-section.dark-theme .member-photo-wrapper {
-    border-color: #81c784;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: var(--section-bg);
+    cursor: pointer;
 }
 
 .member-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    filter: grayscale(100%);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
 }
 
+.image-overlay-reveal {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(var(--primary-rgb), 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    z-index: 3;
+    transition: opacity 0.3s ease;
+}
+
+.reveal-text {
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transform: translateY(8px);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.team-member-card:hover .member-photo {
+    transform: scale(1.03);
+    filter: grayscale(0%);
+}
+
+.team-member-card:hover .image-overlay-reveal {
+    opacity: 1;
+}
+
+.team-member-card:hover .reveal-text {
+    transform: translateY(0);
+}
+
+/* Tighter Text Body Content block */
 .member-info {
-    flex-grow: 1;
+    padding: 14px 16px; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 100%;
-}
-
-.member-name {
-    font-size: 20px;
-    font-weight: bold;
-    color: #1e88e5;
-    margin-bottom: 6px;
-}
-
-.team-section.dark-theme .member-name {
-    color: #9fa8da;
+    flex-grow: 1;
+    z-index: 2;
+    text-align: left;
 }
 
 .member-position {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 12px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
 }
 
-.team-section.dark-theme .member-position {
-    color: #ccc;
+.member-name {
+    font-size: 1.05rem; 
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 12px 0;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.2s ease;
+}
+
+.member-name:hover {
+    color: var(--primary);
+}
+
+.card-footer-action {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
 }
 
 .social-links {
-    margin-bottom: 15px;
+    display: flex;
+    gap: 8px; /* Tighter spacing to bundle 4 icons elegantly side-by-side */
 }
 
 .social-links a {
-    color: #777;
-    font-size: 1.2em;
-    margin: 0 7px;
-    transition: color 0.3s ease;
-}
-
-.team-section.dark-theme .social-links a {
-    color: #bbb;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .social-links a:hover {
-    color: #007bff;
-}
-
-.team-section.dark-theme .social-links a:hover {
-    color: #82caff;
+    color: var(--primary);
+    transform: translateY(-1px);
 }
 
 .read-more-btn {
-    background-color: #007bff;
-    color: #fff;
+    background: none;
     border: none;
-
-    padding: 7px 18px;
-    border-radius: 30px;
-    font-size: 0.85em;
-    font-weight: bold;
+    padding: 0;
+    color: var(--text-main);
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.team-section.dark-theme .read-more-btn {
-    background-color: #82caff;
-    color: #1c2331;
-    box-shadow: 0 4px 10px rgba(130, 202, 255, 0.3);
+.read-more-btn .btn-icon {
+    font-size: 0.8rem;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.read-more-btn:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+.team-member-card:hover .read-more-btn .btn-icon {
+    transform: translateX(3px);
+    color: var(--primary);
 }
 
-.team-section.dark-theme .read-more-btn:hover {
-    background-color: #5ea8e8;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(130, 202, 255, 0.4);
-}
-
-/* Scroll Animation */
+/* Animation Hidden states */
 .team-card-animate-hidden {
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
+    transform: translateY(15px);
 }
 
 .team-card-animate-visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateY(0);
+    transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Modal */
+/* Downsized Modal Box Framework */
 .modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    inset: 0;
+    background-color: rgba(15, 16, 19, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    animation: modal-fade-in 0.3s ease-out;
+    z-index: 2000;
+    padding: 16px;
 }
 
 .modal-content {
-    background-color: #fff;
-    padding: 30px 30px 20px;
-    border-radius: 15px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    max-width: 580px;
-    width: 90%;
-    max-height: 75vh; /* Reduced max height */
-    overflow-y: auto;
+    background-color: #ffffff;
+    border-radius: 0px;
+    max-width: 720px;
+    width: 100%;
+    overflow: hidden;
     position: relative;
-    color: #333;
-    display: flex;
-    flex-direction: column;
+    border: 1px solid #e2e8f0;
+    animation: modal-appear 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .dark-theme-modal {
-    background-color: #2b3a4a;
-    color: #eee;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    background-color: #141519;
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
-/* Bigger clickable close button area */
 .close-modal-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 16px;
+    right: 16px;
     background: none;
     border: none;
-    font-size: 2.5em;
-    color: #888;
+    font-size: 1rem;
+    color: var(--text-muted);
     cursor: pointer;
-    transition: color 0.3s ease;
-    line-height: 1;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.dark-theme-modal .close-modal-btn {
-    color: #ccc;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10;
 }
 
 .close-modal-btn:hover {
-    color: #333;
+    color: var(--text-main);
+    transform: scale(1.05);
 }
 
-.dark-theme-modal .close-modal-btn:hover {
-    color: #fff;
+.modal-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
 }
 
-.modal-body {
-    text-align: center;
-    flex-grow: 1;
-    margin-top: 15px;
+.modal-left {
+    background-color: var(--section-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+
+.dark-theme-modal .modal-left {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.modal-photo-container {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .modal-member-photo {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    margin-bottom: 20px;
-    border: 5px solid #4caf50;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-.dark-theme-modal .modal-member-photo {
-    border-color: #81c784;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-.modal-member-name {
-    font-size: 2em;
-    font-weight: bold;
-    color: #3f51b5;
-    margin-bottom: 8px;
-}
-
-.dark-theme-modal .modal-member-name {
-    color: #9fa8da;
-}
-
-.modal-member-position {
-    font-size: 1.1em;
-    color: #666;
-    margin-bottom: 20px;
-}
-
-.dark-theme-modal .modal-member-position {
-    color: #bbb;
-}
-
-.modal-member-bio {
-    font-size: 1em;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 25px;
-    text-align: left;
-}
-
-.dark-theme-modal .modal-member-bio {
-    color: #ccc;
 }
 
 .modal-social-links {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 15px;
+    gap: 14px;
 }
 
 .modal-social-links a {
-    font-size: 1.6em;
-    color: #777;
-    transition: color 0.3s ease;
-}
-
-.dark-theme-modal .modal-social-links a {
-    color: #bbb;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
 }
 
 .modal-social-links a:hover {
-    color: #007bff;
+    color: var(--primary);
 }
 
-.dark-theme-modal .modal-social-links a:hover {
-    color: #82caff;
+.modal-right {
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
 }
 
-.modal-footer {
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-    margin-top: 15px;
-    text-align: right;
+.modal-member-position {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
 }
 
-.dark-theme-modal .modal-footer {
-    border-top: 1px solid #444;
+.modal-member-name {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0 0 14px 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
-.modal-cancel-btn {
-    background-color: #f0f0f0;
-    color: #333;
-    border: 1px solid #ddd;
-    padding: 8px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.3s ease;
+.modal-divider {
+    width: 30px;
+    height: 2px;
+    background-color: var(--primary);
+    margin-bottom: 16px;
 }
 
-.modal-cancel-btn:hover {
-    background-color: #e0e0e0;
-    border-color: #ccc;
+.modal-member-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0;
 }
 
-.dark-theme-modal .modal-cancel-btn {
-    background-color: #3a4a5a;
-    color: #eee;
-    border-color: #555;
-}
-
-.dark-theme-modal .modal-cancel-btn:hover {
-    background-color: #4a5a6a;
-    border-color: #666;
-}
-
-/* Modal fade-in animation */
-@keyframes modal-fade-in {
+@keyframes modal-appear {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: scale(0.98) translateY(10px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1) translateY(0);
     }
 }
 
-/* Responsive */
-@media (max-width: 992px) {
-    .team-section {
-        padding: 60px 5%;
-    }
-    .section-title {
-        font-size: 2.6em;
-        margin-bottom: 45px;
-    }
-    .team-member-card {
-        max-width: 45%;
-        height: auto;
+/* Responsiveness break points layout */
+@media (max-width: 1024px) {
+    .team-cards-container {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 16px;
     }
 }
 
 @media (max-width: 768px) {
-    .team-section {
-        padding: 50px 4%;
+    .team-cards-container {
+        grid-template-columns: repeat(2, 1fr); 
     }
-    .section-title {
-        font-size: 2em;
-        margin-bottom: 35px;
+    .modal-grid {
+        grid-template-columns: 1fr;
     }
-    .team-member-card {
-        max-width: 90%;
-        padding: 20px;
-        height: auto;
+    .modal-left {
+        padding: 40px 24px 20px;
     }
-    .member-photo-wrapper {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 18px;
-    }
-    .member-name {
-        font-size: 1.4em;
-    }
-    .member-position {
-        font-size: 0.95em;
-    }
-    .social-links a {
-        font-size: 1.1em;
-        margin: 0 7px;
-    }
-    .read-more-btn {
-        padding: 7px 18px;
-        font-size: 0.85em;
-    }
-    .modal-content {
-        padding: 25px 25px 15px;
-        max-height: 80vh;
-    }
-    .modal-member-photo {
-        width: 140px;
-        height: 140px;
-    }
-    .modal-member-name {
-        font-size: 1.8em;
-    }
-    .modal-member-position {
-        font-size: 1em;
-    }
-    .modal-member-bio {
-        font-size: 0.95em;
-    }
-    .modal-social-links a {
-        font-size: 1.4em;
+    .modal-right {
+        padding: 20px 24px 40px;
     }
 }
 
 @media (max-width: 480px) {
-    .team-section {
-        padding: 30px 3%;
-    }
-    .section-title {
-        font-size: 1.6em;
-        margin-bottom: 25px;
-    }
-    .team-member-card {
-        padding: 15px 15px;
-        height: auto;
-    }
-    .member-photo-wrapper {
-        width: 90px;
-        height: 90px;
-    }
-    .member-name {
-        font-size: 1.2em;
-    }
-    .modal-content {
-        padding: 20px 20px 15px;
-        width: 95%;
-        max-height: 85vh;
-    }
-    .modal-member-photo {
-        width: 110px;
-        height: 110px;
-    }
-    .modal-member-name {
-        font-size: 1.6em;
-    }
-    .modal-member-position {
-        font-size: 0.9em;
-    }
-    .modal-member-bio {
-        font-size: 0.9em;
-    }
-    .modal-social-links a {
-        font-size: 1.2em;
-    }
-    .modal-footer {
-        padding-top: 10px;
-        margin-top: 10px;
-    }
-    .modal-cancel-btn {
-        padding: 7px 15px;
-        font-size: 0.8em;
-    }
-    .close-modal-btn {
-        top: 5px;
-        right: 5px;
-        font-size: 2em;
-        width: 35px;
-        height: 35px;
+    .team-cards-container {
+        grid-template-columns: 1fr; 
+        gap: 24px;
     }
 }
 </style>

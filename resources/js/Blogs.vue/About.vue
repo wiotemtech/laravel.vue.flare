@@ -1,399 +1,475 @@
-<script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-import mission from '../components/mission.vue';
-import Team from '../components/Team.vue';// Correct way to import your component in <script setup>
-import Volunteer from '../components/Volunteer.vue';
-
-// Define props to receive dark mode state from parent
-const props = defineProps({
-    isDarkMode: {
-        type: Boolean,
-        default: false
-    }
-});
-
-// Refs to target elements for Intersection Observer
-const imageElement = ref(null);
-const contentElement = ref(null);
-
-// Intersection Observer instances
-let imageObserver;
-let contentObserver;
-
-onMounted(() => {
-    const observerOptions = {
-        root: null, // Use the viewport as the root
-        rootMargin: '0px',
-        threshold: 0.1 // Trigger when 10% of the element is visible
-    };
-
-    // Observer for the image (slides in from left)
-    imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Add class to trigger animation
-                entry.target.classList.add('animate-visible-left');
-                // Stop observing once animated
-                imageObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Observer for the content (slides in from right)
-    contentObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Add class to trigger animation
-                entry.target.classList.add('animate-visible-right');
-                // Stop observing once animated
-                contentObserver.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    // Attach observers to elements
-    if (imageElement.value) {
-        // Add initial hidden class
-        imageElement.value.classList.add('animate-hidden-left');
-        imageObserver.observe(imageElement.value);
-    }
-    if (contentElement.value) {
-        // Add initial hidden class
-        contentElement.value.classList.add('animate-hidden-right');
-        contentObserver.observe(contentElement.value);
-    }
-});
-
-onUnmounted(() => {
-    // Disconnect observers when the component is unmounted to prevent memory leaks
-    if (imageObserver && imageElement.value) {
-        imageObserver.unobserve(imageElement.value);
-    }
-    if (contentObserver && contentElement.value) {
-        contentObserver.unobserve(contentElement.value);
-    }
-});
-</script>
-
 <template>
-    <section
-            :class="{ 'dark-theme-events': isDarkMode }"
-            style="background-image: url('/assets/images/flare.png')"
-            class="landing-section"
-        >
-            <div class="overlay"></div>
-            <div class="landing-content">
-                <h1>About Us</h1>
-                <!-- <p style="font-weight: bold; color: red">
-                    "Leave No One Behind"
-                </p>-->
-            </div>
-        </section>
+  <section class="human-about" :class="{ 'dark-mode': props.isDarkMode }">
+    <div class="display-grid-container">
+      
+      <!-- LEFT SIDE: Warm, Organic Human-Centered Vector Composition -->
+      <div class="graphic-canvas-stage">
+        <div class="composition-frame">
+          
+          <!-- Decorative Background Organic Blob -->
+          <div class="fluid-bg-glow"></div>
 
-    <section class="about-section" :class="{ 'dark-theme': props.isDarkMode }">
+          <svg 
+            viewBox="0 0 500 550" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg" 
+            class="humanistic-svg"
+          >
+            <defs>
+              <!-- Soft Warm Radiance Gradients -->
+              <radialGradient id="sunRadiance" cx="75%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="var(--warm-amber)" stop-opacity="0.4" />
+                <stop offset="60%" stop-color="var(--warm-coral)" stop-opacity="0.1" />
+                <stop offset="100%" stop-color="var(--bg-canvas)" stop-opacity="0" />
+              </radialGradient>
+
+              <linearGradient id="humanGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1e1b4b" />
+                <stop offset="60%" stop-color="var(--accent-indigo)" />
+                <stop offset="100%" stop-color="var(--warm-coral)" />
+              </linearGradient>
+
+              <linearGradient id="childGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#312e81" />
+                <stop offset="100%" stop-color="var(--accent-indigo)" />
+              </linearGradient>
+
+              <!-- Premium Drop Shadow for Depth Separation -->
+              <filter id="organicShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="var(--shadow-color)" flood-opacity="0.15" />
+              </filter>
+            </defs>
+
+            <!-- Ambient Sun Field Background -->
+            <circle cx="360" cy="180" r="160" fill="url(#sunRadiance)" class="sun-field" />
+            <circle cx="360" cy="180" r="45" fill="var(--warm-amber)" opacity="0.15" class="sun-pulse-ring" />
+            <circle cx="360" cy="180" r="25" fill="var(--warm-amber)" class="sun-core" />
+
+            <!-- Concentric Hope Ripples -->
+            <circle cx="360" cy="180" r="90" stroke="var(--warm-coral)" stroke-width="1" stroke-dasharray="4 8" opacity="0.3" class="ripple-ring" />
+            <circle cx="360" cy="180" r="130" stroke="var(--accent-indigo)" stroke-width="1" stroke-dasharray="2 6" opacity="0.2" class="ripple-ring slow" />
+
+            <!-- Stylized Human Figures (Vector Metaphor: Protection, Guidance, Growth) -->
+            <g filter="url(#organicShadow)" class="figures-group">
+              <!-- Guardian / Woman Figure Structure -->
+              <path 
+                d="M 120 550 C 120 420, 160 340, 220 320 C 200 290, 200 250, 220 220 C 250 180, 300 190, 310 230 C 320 270, 300 300, 280 320 C 340 350, 380 430, 390 550 Z" 
+                fill="url(#humanGradient)" 
+                class="vector-silhouette adult-silhouette"
+              />
+              
+              <!-- Protected Child Figure Structure -->
+              <path 
+                d="M 260 550 C 260 470, 280 430, 320 420 C 310 400, 310 370, 325 350 C 345 320, 380 325, 385 355 C 390 385, 375 405, 360 420 C 400 440, 420 490, 425 550 Z" 
+                fill="url(#childGradient)" 
+                class="vector-silhouette child-silhouette"
+              />
+            </g>
+
+            <!-- Sparkling Impact Crosses / Starburst Particles -->
+            <g fill="var(--warm-coral)" class="sparkle-cluster">
+              <path d="M 160 180 L 163 187 L 170 190 L 163 193 L 160 200 L 157 193 L 150 190 L 157 187 Z" opacity="0.8" />
+              <path d="M 420 280 L 422 284 L 426 286 L 422 288 L 420 292 L 418 288 L 414 286 L 418 284 Z" opacity="0.6" />
+            </g>
+          </svg>
+
+          <!-- Floating Interactive Metrics Badge Overlay -->
+          <div class="floating-impact-badge">
+            <div class="badge-icon-core"></div>
+            <p class="badge-txt">Registered with the Lira City NGO Monitoring Committee</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: Modern High-Impact Warm Typography Layout -->
+      <div class="narrative-text-stage">
         
-        <div class="about-image-container" ref="imageElement">
-            <!-- Corrected image path: /public is usually implied at the root -->
-            <img src="/public/assets/images/alfred.jpg" alt="Flare International Foundation Team" />
-        </div>
-        <div class="about-content-container" ref="contentElement">
-            <h2 class="section-title">ABOUT FLARE INTERNATIONAL FOUNDATION</h2>
-            <p>
-                At Flare International Foundation, we are a Non-Governmental Organization working to transform lives across borders.
-                While our roots and current operations are anchored in Uganda, where we work closely with the Lira City NGO Monitoring Committee,
-                our vision extends far beyond these boundaries!
-            </p>
-            <p>
-                We believe in creating lasting change that knows no geographical limits. At the heart of our mission is the empowerment of women and girls,
-                alongside our dedication to transforming the lives of street-connected children and vulnerable communities. We champion gender equality,
-                fight against gender-based violence (GBV), and create safe spaces where women and girls can thrive.
-            </p>
-            <h3 class="subsection-title">What drives us every day:</h3>
-            <ul>
-                <li>Empowering girls and women through education, skills training, and leadership programs</li>
-                <li>Combating gender-based violence through prevention, response, and survivor support</li>
-                <li>Breaking down barriers to gender equality in communities</li>
-                <li>Rescuing and rehabilitating street-connected children, giving them hope and a path to a better future</li>
-                <li>Supporting vulnerable children to access quality education through our sponsorship program</li>
-                <li>Equipping out-of-school youth with hands-on skills in trades like tailoring, carpentry, and agriculture</li>
-                <li>Strengthening women's economic independence through Village Savings and Loan Associations (VSLA)</li>
-            </ul>
-            <p>
-                We believe in the power of humanity coming together for positive change. Through our gender-responsive approach and collaboration with local leaders,
-                schools, families, and youth groups, we're not just building stronger communities - we're creating a model for transformative change.
-            </p>
+        <header class="content-header">
+          <div class="editorial-eyebrow">
+            <span class="pill-accent">Our Foundations</span>
+            <span class="eyebrow-text">Global Vision</span>
+          </div>
+          <h2 class="main-display-heading">
+            Shattering Boundaries to Deliver Real Human Renewal.
+          </h2>
+        </header>
 
-            <!-- Removed "Our Vision" and "Our Mission" sections as requested -->
-        </div>
-    </section>
+        <p class="editorial-lead-para">
+          At Flare International Foundation, we challenge the status quo. We are an active, borderless Non-Governmental Organization transforming fragile lives from the ground up, generating structural ecosystems of safety, healing, and self-reliance.
+        </p>
 
-    <!-- 'mission' component is now correctly used here -->
-    <mission/>
-    <Team/>
-    <Volunteer/>
-    
+        <!-- Core Operational Strategy Cards -->
+        <div class="action-cards-grid">
+          <div class="strategy-card">
+            <div class="card-edge coral"></div>
+            <h3 class="card-title">Shielding Women &amp; Girls</h3>
+            <p class="card-body-text">
+              Combating gender-based violence (GBV) by launching tactical safe spaces and self-determination tracks designed to foster immediate socioeconomic autonomy.
+            </p>
+          </div>
+
+          <div class="strategy-card">
+            <div class="card-edge indigo"></div>
+            <h3 class="card-title">Rehabilitating Street Children</h3>
+            <p class="card-body-text">
+              Deploying target-driven outreach structures that transition street-connected children into safe environments with stable health, education, and community pathways.
+            </p>
+          </div>
+        </div>
+
+        <p class="editorial-sub-para">
+          Though our primary deployment centers are anchored inside Uganda, our human commitment refuses to accept strict limits or checkpoints. Where vulnerability exists, we build an infrastructure of hope.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
 </template>
 
+<script setup>
+import { defineProps } from 'vue'
+
+const props = defineProps({
+  isDarkMode: {
+    type: Boolean,
+    default: false
+  }
+})
+</script>
+
 <style scoped>
-
-.landing-section {
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    height: 25vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 30px;
-    margin-top: -113px;
-
-    animation: fadeIn 1.5s ease-in;
+/* Core Warm Modern Design Token Matrix */
+.human-about {
+  --bg-canvas: #faf9f6;
+  --text-dark: #121214;
+  --text-muted: #52525b;
+  --accent-indigo: #4f46e5;
+  --warm-coral: #f97316;
+  --warm-amber: #facc15;
+  --shadow-color: rgba(24, 24, 27, 0.08);
+  --surface-card: #ffffff;
+  --card-border: rgba(24, 24, 27, 0.04);
+  
+  background-color: var(--bg-canvas);
+  color: var(--text-dark);
+  padding: 140px 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
-    z-index: 1;
+/* Dark Mode Spectrum Configuration */
+.dark-mode {
+  --bg-canvas: #09090b;
+  --text-dark: #f4f4f5;
+  --text-muted: #a1a1aa;
+  --accent-indigo: #6366f1;
+  --warm-coral: #fb923c;
+  --warm-amber: #fde047;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --surface-card: #18181b;
+  --card-border: rgba(255, 255, 255, 0.05);
 }
 
-.landing-content {
-    position: relative;
-    z-index: 2;
-    color: #fff;
-    padding-top: 10px;
-    text-align: center;
+/* Base Responsive Grid Structure */
+.display-grid-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: 88px;
+  align-items: center;
 }
 
-.landing-content h1 {
-    font-size: 40px;
-    font-weight: bold;
-    animation: slideDown 1s ease;
+/* ==========================================================================
+   LEFT PANEL: ORGANIC GRAPHIC ENVIRONMENT
+   ========================================================================== */
+.graphic-canvas-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.tagline {
-    font-weight: bold;
-    font-size: 20px;
-    
+.composition-frame {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
 }
 
-
- @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.humanistic-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  z-index: 2;
+  position: relative;
 }
 
-/* Main section styling */
-.about-section {
-    margin-top: -28px;
-    display: flex;
-    flex-direction: row; /* Default: image on left, text on right */
-    align-items: stretch; /* Stretch items to match height */
-    padding: 80px 10%; /* Generous padding for spacing */
-    gap: 60px; /* Space between image and content */
-    background-color: #f8f8f8;
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+/* Ambient Fluid Background Blob */
+.fluid-bg-glow {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, var(--warm-amber) 0%, transparent 70%);
+  opacity: 0.12;
+  filter: blur(40px);
+  z-index: 1;
+  pointer-events: none;
 }
 
-.about-section.dark-theme {
-    background-color: #1a1a1a; /* Dark background */
-    color: #eee; /* Light text */
+/* High Fidelity Interactive SVG Animations */
+.sun-pulse-ring {
+  animation: beaconPulse 3.5s ease-in-out infinite alternate;
+  transform-origin: 360px 180px;
 }
 
-/* Image container */
-.about-image-container {
-    flex: 1.2; /* UPDATED: Give image container more flexible space */
-    min-width: 300px;
-    max-width: 50%; /* UPDATED: Allow image container to be wider, up to 50% */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* REMOVED: min-height: 400px; - Rely on align-items: stretch for height */
+.ripple-ring {
+  animation: rippleRotate 40s linear infinite;
+  transform-origin: 360px 180px;
+}
+.ripple-ring.slow {
+  animation-duration: 60s;
+  animation-direction: reverse;
 }
 
-.about-image-container img {
-    width: 100%;
-    height: 100%; /* Make image fill the container's height */
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    object-fit: cover; /* Ensure image covers the area without distortion */
+.sparkle-cluster path {
+  animation: twinkleSparkle 4s ease-in-out infinite alternate;
+  transform-origin: center;
 }
 
-.about-section.dark-theme .about-image-container img {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+.vector-silhouette {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.adult-silhouette { transform-origin: 250px 550px; }
+.child-silhouette { transform-origin: 340px 550px; }
+
+/* Micro Interaction Logic on Parent Canvas Hover */
+.humanistic-svg:hover .adult-silhouette {
+  transform: scale(1.03) translateX(-4px);
 }
 
-/* Content container */
-.about-content-container {
-    flex: 1; /* UPDATED: Give content container less flexible space, relatively */
-    min-width: 400px; /* Minimum width for content on desktop (for readability) */
+.humanistic-svg:hover .child-silhouette {
+  transform: scale(1.05) translateX(2px);
 }
 
-.section-title {
-    font-size: 30px;
-    color: #007bff; /* Primary blue for title */
-    margin-bottom: 25px;
-    text-align: left;
-    font-weight: bold;
-    line-height: 1.2;
+.humanistic-svg:hover .sun-core {
+  fill: var(--warm-coral);
 }
 
-.about-section.dark-theme .section-title {
-    color: #66b3ff; /* Lighter blue for dark theme title */
+/* Keyframe Math Parameters */
+@keyframes beaconPulse {
+  0% { transform: scale(0.85); opacity: 0.1; }
+  100% { transform: scale(1.2); opacity: 0.35; }
 }
 
-.about-content-container p {
-    font-size: 1.15em;
-    line-height: 1.4;
-    margin-bottom: 18px;
-    text-align: justify; /* Justify text for clean block appearance */
+@keyframes rippleRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-.subsection-title {
-    font-size: 30px;
-    color: #1e88e5; /* Green for sub-titles */
-    margin-top: 3px;
-    margin-bottom: 5px;
-    text-align: left;
-    font-weight: bold;
+@keyframes twinkleSparkle {
+  0% { opacity: 0.2; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.15); }
 }
 
-.about-section.dark-theme .subsection-title {
-    color: #79f291; /* Lighter green for dark theme sub-titles */
+/* Floating Realism Badge System */
+.floating-impact-badge {
+  position: absolute;
+  bottom: 30px;
+  left: -20px;
+  background-color: var(--surface-card);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 20px 40px var(--shadow-color);
+  padding: 16px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 260px;
+  z-index: 3;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.about-content-container ul {
-    list-style: none; /* Remove default list bullets */
-    padding-left: 0;
-    margin-bottom: 25px;
+.composition-frame:hover .floating-impact-badge {
+  transform: translateY(-6px) rotate(-1deg);
 }
 
-.about-content-container ul li {
-    font-size: 1.05em;
-    line-height: 1.4;
-    margin-bottom: 8px;
-    position: relative;
-    padding-left: 25px; /* Space for custom bullet */
+.badge-icon-core {
+  width: 10px;
+  height: 10px;
+  background-color: var(--warm-coral);
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+.badge-icon-core::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1px solid var(--warm-coral);
+  border-radius: 50%;
+  animation: beaconPulse 1.5s infinite;
 }
 
-.about-content-container ul li::before {
-    content: '\2022'; /* Unicode for a solid bullet */
-    color: #007bff; /* Blue bullet */
-    font-weight: bold;
-    display: inline-block;
-    width: 1em; /* Space for the bullet */
-    margin-left: -1em; /* Pull bullet into padding */
-    position: absolute;
-    left: 0;
-}
-
-.about-section.dark-theme .about-content-container ul li::before {
-    color: #66b3ff; /* Lighter blue bullet for dark theme */
-}
-
-/* Animation initial states (hidden) */
-.animate-hidden-left {
-    opacity: 0;
-    transform: translateX(-80px); /* Start off-screen to the left */
-    transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth transition */
-}
-.animate-visible-left {
-    opacity: 1;
-    transform: translateX(0); /* End at original position */
-}
-
-.animate-hidden-right {
-    opacity: 0;
-    transform: translateX(80px); /* Start off-screen to the right */
-    transition: opacity 1s ease-out, transform 1s ease-out; /* Smooth transition */
-}
-.animate-visible-right {
-    opacity: 1;
-    transform: translateX(0); /* End at original position */
+.badge-txt {
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .about-section {
-        flex-direction: column; /* Stack image and content vertically */
-        padding: 60px 8%; /* Adjust padding for tablets */
-        gap: 40px; /* Space between stacked items */
-        align-items: center; /* Center items when stacked */
-    }
-
-    .about-image-container,
-    .about-content-container {
-        max-width: 100%; /* Allow them to take full width */
-        min-width: unset; /* Remove min-width constraints */
-        flex: none; /* Remove flex grow/shrink properties */
-        min-height: auto; /* Allow height to adjust naturally on smaller screens */
-    }
-
-    .about-image-container img {
-        max-width: 70%; /* Scale down image on tablets */
-        height: auto; /* Allow height to adjust naturally */
-        margin: 0 auto; /* Center image within its container */
-        display: block; /* Ensure margin auto works */
-    }
-
-    .section-title,
-    .subsection-title,
-    .about-content-container p,
-    .about-content-container ul {
-        text-align: center; /* Center text content on tablets */
-    }
-    
-    .about-content-container ul {
-        padding-left: 20px; /* Adjust padding for list on center aligned text */
-    }
-    .about-content-container ul li {
-        text-align: left; /* Keep list items left-aligned within their container */
-    }
+/* ==========================================================================
+   RIGHT PANEL: HIGH-IMPACT TYPOGRAPHY & CARDS
+   ========================================================================== */
+.narrative-text-stage {
+  display: flex;
+  flex-direction: column;
 }
 
-@media (max-width: 576px) {
-    .about-section {
-        padding: 40px 5%; /* Further reduce padding for mobile phones */
-        gap: 30px; /* Smaller gap */
-    }
+.editorial-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
 
-    .about-image-container img {
-        max-width: 90%; /* Make image slightly larger on small mobile */
-    }
+.pill-accent {
+  background-color: rgba(79, 70, 229, 0.08);
+  color: var(--accent-indigo);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.dark-mode .pill-accent {
+  background-color: rgba(99, 102, 241, 0.15);
+}
 
-    .section-title {
-        font-size: 2em; /* Smaller font for mobile title */
-        margin-bottom: 15px;
-    }
+.eyebrow-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
 
-    .about-content-container p {
-        font-size: 1em; /* Smaller font for mobile paragraphs */
-        line-height: 1.7;
-        margin-bottom: 10px;
-    }
+.main-display-heading {
+  font-size: 2.85rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 32px;
+}
 
-    .subsection-title {
-        font-size: 1.6em; /* Smaller font for mobile sub-titles */
-        margin-top: 25px;
-        margin-bottom: 10px;
-    }
+.editorial-lead-para {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--text-dark);
+  opacity: 0.9;
+  margin-bottom: 40px;
+}
 
-    .about-content-container ul li {
-        font-size: 0.95em; /* Smaller font for list items */
-        margin-bottom: 5px;
-    }
+/* Strategic Framework Action Layout Grid */
+.action-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.strategy-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+  padding: 28px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.strategy-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px var(--shadow-color);
+}
+
+.card-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+.card-edge.coral { background-color: var(--warm-coral); }
+.card-edge.indigo { background-color: var(--accent-indigo); }
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-dark);
+}
+
+.card-body-text {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.editorial-sub-para {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  border-left: 2px solid var(--card-border);
+  padding-left: 20px;
+  margin: 0;
+}
+
+/* Clean Responsive Adaptations */
+@media (max-width: 1120px) {
+  .display-grid-container {
+    grid-template-columns: 1fr;
+    gap: 72px;
+    padding: 0 32px;
+  }
+  .human-about {
+    padding: 100px 0;
+  }
+  .graphic-canvas-stage {
+    order: -1;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  .main-display-heading {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .display-grid-container {
+    padding: 0 20px;
+  }
+  .action-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .main-display-heading {
+    font-size: 2rem;
+  }
+  .floating-impact-badge {
+    left: 10px;
+    right: 10px;
+    max-width: none;
+    bottom: 10px;
+  }
 }
 </style>

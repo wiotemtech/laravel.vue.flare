@@ -4,6 +4,7 @@ import flare from './flare.vue';
 import Cause from '../components/Cause.vue';
 import Humanity from '../components/Humanity.vue';
 import patner from '../components/patner.vue';
+import Ourpatners from '../components/Ourpatners.vue';
 
 
 export default {
@@ -13,6 +14,7 @@ export default {
         Cause,
         Humanity,
         patner,
+        Ourpatners,
      
     },
 };
@@ -21,9 +23,12 @@ export default {
 <template>
     <div>
         <LandingPage />
-        <flare/>
          <humanity/>
+        <flare/>
+       
         <Cause/>
+        <Ourpatners/>
+
         <patner/>
        
       

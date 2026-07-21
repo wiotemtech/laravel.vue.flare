@@ -10,54 +10,53 @@ const props = defineProps({
 
 const cardsData = ref([
     {
+        num: "01",
         title: "Our Vision",
+        glowColor: "rgba(2, 132, 199, 0.25)", /* Blue glow */
         text: "To create a compassionate and empowered world where every individual has access to basic needs, rights, education, gender equality and opportunities to improve their quality of life."
     },
     {
+        num: "02",
         title: "Our Mission",
+        glowColor: "rgba(16, 185, 129, 0.25)", /* Green glow */
         text: "To provide holistic support and resources to vulnerable communities focusing on education, healthcare, girl child education, gender equality, vulnerable children, economic empowerment and social inclusion while fostering a spirit of charity and collaboration."
     },
     {
+        num: "03",
         title: "Our Motto",
-        text: "Empowering Hearts, Transforming Lives." // Placeholder motto, you can update this!
+        glowColor: "rgba(244, 63, 94, 0.25)", /* Rose/Red glow */
+        text: "Empowering Hearts, Transforming Lives."
     }
 ]);
 
 const cardRefs = ref([]); 
-// We'll store a reactive state for whether each card should be visible
 const cardVisibility = ref(new Array(cardsData.value.length).fill(false));
-
-let cardObservers = []; // To store IntersectionObserver instances
+let cardObservers = [];
 
 onMounted(() => {
     const observerOptions = {
-        root: null, // Observe relative to the viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.2 // Trigger when 20% of the item is visible
+        threshold: 0.15 
     };
 
     cardRefs.value.forEach((cardElement, index) => {
-        // No need to add card-animate-hidden directly here.
-        // The default styles (opacity:0, transform:Y(50px)) in CSS handle the initial hidden state.
-
+        if (!cardElement) return;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // When the card enters the viewport, set its visibility to true
                     cardVisibility.value[index] = true;
-                    // Stop observing once it's visible to prevent re-triggering
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         observer.observe(cardElement);
-        cardObservers.push(observer); // Store the observer for cleanup
+        cardObservers.push(observer);
     });
 });
 
 onUnmounted(() => {
-    // Disconnect all observers when the component is unmounted
     cardObservers.forEach((observer) => {
         observer.disconnect();
     });
@@ -65,207 +64,272 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <section class="vision-mission-motto-section" :class="{ 'dark-theme': props.isDarkMode }">
-        <h2 class="section-title">Our Core Principles</h2>
-        <div class="cards-container">
-            <div
-                v-for="(card, index) in cardsData"
-                :key="index"
-                class="card-item"
-                :ref="el => { if (el) cardRefs[index] = el }"
-                :class="{ 'card-animate-visible': cardVisibility[index] }" 
-                :style="{ 'animation-delay': `${index * 0.2}s` }"
-            >
-                <h3>{{ card.title }}</h3>
-                <p>{{ card.text }}</p>
+    <section 
+        class="vision-mission-motto-section" 
+        :class="{ 'dark-theme': props.isDarkMode }"
+        style="background-image: url('/assets/images/pupils.jpg');"
+    >
+        <div class="section-overlay"></div>
+
+        <div class="content-wrapper">
+            <div class="section-header">
+                <span class="section-tagline">What Drives Us</span>
+                <h2 class="section-title">Our Core Principles</h2>
+            </div>
+            
+            <div class="cards-container">
+                <div
+                    v-for="(card, index) in cardsData"
+                    :key="index"
+                    class="card-item"
+                    :ref="el => { if (el) cardRefs[index] = el }"
+                    :class="{ 'card-animate-visible': cardVisibility[index] }" 
+                    :style="{ 
+                        'transition-delay': `${index * 0.12}s`,
+                        '--hover-glow-color': card.glowColor 
+                    }"
+                >
+                    <!-- Background Glow Overlay used dynamically on hover -->
+                    <div class="card-glow-bg"></div>
+
+                    <!-- Elegant Translucent Background Numbering -->
+                    <span class="card-number">{{ card.num }}</span>
+                    
+                    <div class="card-header-block">
+                        <span class="card-accent-bar"></span>
+                        <h3>{{ card.title }}</h3>
+                    </div>
+                    
+                    <div class="card-body-block">
+                        <p>{{ card.text }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </template>
 
 <style scoped>
-/*
-   IMPORTANT:
-   Remove 'opacity: 0;' and 'transform: translateY(50px);' from .card-item base style.
-   These should only be present in '.card-animate-hidden' or implicit initial states if not directly controlled.
-   Since 'card-animate-hidden' is removed, .card-item's base style will be its final state.
-   The animation class will then transition it.
-*/
+/* Main Section Setup */
 .vision-mission-motto-section {
-    padding: 80px 10%;
-    background-color: #eef7ee; 
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    --primary-accent: #38bdf8;
+    --text-primary: #ffffff;
+    --text-muted: #cbd5e1;
+    --number-color: rgba(255, 255, 255, 0.05);
+
+    /* Glassmorphism Defaults */
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-blur: 16px;
+
+    position: relative;
+    padding: 120px 8%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-primary);
     text-align: center;
+    overflow: hidden;
 }
 
-/* Ensure dark mode styles are correctly applied, if 'body.dark-theme-body' is the global class */
-body.dark-theme-body .vision-mission-motto-section {
-    background-color: #111;
+/* Dark Theme Adjustments: Makes glass look deep & moody */
+.vision-mission-motto-section.dark-theme {
+    --primary-accent: #0ea5e9;
+    --text-muted: #94a3b8;
+    --glass-bg: rgba(15, 23, 42, 0.45);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --number-color: rgba(255, 255, 255, 0.03);
 }
 
-body.dark-theme-body .card-item {
-    background: linear-gradient(135deg, #1e1e1e, #2a2a2a); /* Darker background for dark theme */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Adjust shadow for dark theme */
+.section-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
+    z-index: 1;
+  
 }
 
-body.dark-theme-body .card-item p {
-    color: #eee; /* Light text color for dark theme */
+.vision-mission-motto-section.dark-theme .section-overlay {
+    background: linear-gradient(180deg, rgba(8, 10, 18, 0.85) 0%, rgba(8, 10, 18, 0.95) 100%);
 }
 
-body.dark-theme-body .card-item h3 {
-    color: #8ab4f8; /* A lighter blue for dark theme titles */
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* Header block */
+.section-header {
+    margin-bottom: 80px;
+}
+
+.section-tagline {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--primary-accent);
+    margin-bottom: 12px;
+}
 
 .section-title {
-    font-size: 30px; 
-    color: red; 
-    margin-bottom: 60px; 
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.1); 
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.03em;
 }
 
-/* Horizontal line for section title (added for better visual separation as common in designs) */
-.section-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 4px;
+/* Cards Layout Grid */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+}
 
-    margin: 20px auto 0;
+/* Premium Glassmorphism Card Style */
+.card-item {
+    position: relative;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 45px 35px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 360px;
+    text-align: left;
+    
+    /* Crucial Glass properties */
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    
+    /* Animation initial state */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease,
+                box-shadow 0.4s ease;
+}
+
+/* Hidden dynamic glow backing activated on hover */
+.card-glow-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 10%, var(--hover-glow-color), transparent 75%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 20px;
+}
+
+/* Scroll Entrance State */
+.card-item.card-animate-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Interactive Hover States */
+.card-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    border-color: rgba(255, 255, 255, 0.35); /* Shines the frosted border edge on hover */
+}
+
+/* Activate the local element glows on hover */
+.card-item:hover .card-glow-bg {
+    opacity: 1;
+}
+
+/* Glass Floating Background Numbers */
+.card-number {
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    font-size: 6.5rem;
+    font-weight: 900;
+    color: var(--number-color);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+    z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.card-item:hover .card-number {
+    transform: scale(1.05) translateY(-5px);
+}
+
+/* Card Header Block */
+.card-header-block {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Vibrant Left Structural Accent Bar */
+.card-accent-bar {
+    display: block;
+    width: 4px;
+    height: 28px;
+    background-color: #38bdf8; /* Blue */
+    margin-right: 15px;
     border-radius: 2px;
 }
 
-
-.cards-container {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 30px; 
+.card-item:nth-child(2) .card-accent-bar {
+    background-color: #10b981; /* Green for Mission */
 }
 
-.card-item {
-    background: linear-gradient(135deg, #f0f0f0, #ffffff); /* Subtle gradient for depth */
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    flex: 1; 
-    min-width: 280px; 
-    max-width: 350px; 
-    text-align: left; 
-    transition: all 0.4s ease-in-out; 
-    position: relative; 
-    overflow: hidden; 
-    border: 2px solid transparent; 
-
-    /* Initial state for animation */
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-.card-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 8px; 
-    background: linear-gradient(90deg,#1e88e5,#1e88e5); /* Gradient accent */
-    border-radius: 15px 15px 0 0;
-    transform: scaleX(0); 
-    transform-origin: left;
-    transition: transform 0.4s ease-in-out;
-    z-index: 1; 
-}
-
-.card-item:hover::before {
-    transform: scaleX(1); 
-}
-
-/* This targets the dark theme class directly on the section */
-.vision-mission-motto-section.dark-theme .card-item {
-    background: linear-gradient(135deg, #2a342c, #3a443c); /* Darker gradient for cards in dark theme */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    border-color: transparent; 
-}
-
-.vision-mission-motto-section.dark-theme .card-item h3 {
-    color: #8ab4f8; /* Lighter blue for titles in dark theme */
-}
-
-.vision-mission-motto-section.dark-theme .card-item p {
-    color: #eee; /* Light text for paragraphs in dark theme */
-}
-
-
-.card-item:hover {
-    transform: translateY(-10px); 
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); /* Stronger shadow on hover */
-    border-color: #1e88e5; /* Add a subtle border on hover */
+.card-item:nth-child(3) .card-accent-bar {
+    background-color: #f43f5e; /* Rose/Red for Motto */
 }
 
 .card-item h3 {
-    font-size: 1.9em; 
-    color: #007bff; 
-    margin-bottom: 15px;
-    font-weight: 700; 
-    letter-spacing: -0.5px; 
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* Content Text block */
+.card-body-block {
     position: relative;
-    padding-top: 10px; 
-    z-index: 2; 
+    z-index: 2;
 }
 
-.card-item p {
-    font-size: 1.1em; 
-    line-height: 1.8;
-    color: #444; 
-    z-index: 2; 
+.card-body-block p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin: 0;
 }
 
-/* Animation classes */
-/* Renamed and simplified: card-animate-hidden is now implicitly the default .card-item styles */
-.card-animate-visible {
-    opacity: 1;
-    transform: translateY(0);
-    /* Transition applied directly to card-item, animation-delay via inline style */
-}
-
-/* Responsive adjustments */
+/* Responsive Customization */
 @media (max-width: 768px) {
     .vision-mission-motto-section {
-        padding: 60px 5%;
+        padding: 80px 6%;
+        background-attachment: scroll; /* Disables heavy parallax logic on mobile GPU */
     }
 
     .section-title {
-        font-size: 2.5em;
-        margin-bottom: 30px;
+        font-size: 2.1rem;
     }
 
     .card-item {
-        min-width: 250px;
-        max-width: 90%; 
-        padding: 25px;
-    }
-
-    .card-item h3 {
-        font-size: 1.6em;
-    }
-
-    .card-item p {
-        font-size: 0.95em;
-    }
-}
-
-@media (max-width: 480px) {
-    .section-title {
-        font-size: 2em;
-        margin-bottom: 25px;
-    }
-
-    .card-item {
-        min-width: 200px; 
-        padding: 20px;
+        min-width: 100%;
+        padding: 40px 30px;
     }
 }
 </style>

@@ -1,346 +1,511 @@
 <script setup>
-import { ref } from "vue";
-
-const isDarkMode = ref(false);
+// Dark theme toggle removed
 </script>
 
 <template>
-    <footer
-        class="footer-custom text-light"
-        :class="{ 'dark-theme': isDarkMode }"
-    >
-        <div class="container">
-            <div class="row text-md-start text-center">
-                <div class="col-md-4 mb-4">
-                    <img
-                        src="/public/assets/images/flare.png"
-                        alt="Logo"
-                        class="footer-logo"
-                    />
-                    <h6 class="text-uppercase">
-                        FLARE INTERNATIONAL FOUNDATION
-                    </h6>
-                    <p>" partner with us in making a difference."</p>
+    <footer class="editorial-footer">
+        <!-- Background Overlay -->
+        <div class="footer-overlay"></div>
 
-                    <div style="margin-left: -9px" class="button-group">
-                        <router-link
-                            to="/contact-us"
-                            id="one"
-                            class="download-btn"
-                            >Partner with us</router-link
-                        >
-
-                        <!--
-
-                        <a href="#" id="two" class="story-btn"
-                            >Donate to support</a
-                        >
-                    --></div>
-                </div>
-
-                <div class="col-md-2 mb-4">
-                    <h6>Quick Links</h6>
-                    <p><a href="#">Home</a></p>
-
-                    <p><a href="#">Gallery</a></p>
-                    <p><a href="#">Volunteer with us</a></p>
-                    <p><a href="#">Donate to us</a></p>
-                    <p><a href="#">Contact-us</a></p>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <h6>Top Programs</h6>
-                    <p><a href="#">Health Care</a></p>
-                    <p><a href="#">Environmental Protection</a></p>
-                    <p><a href="#">Education and Training</a></p>
-                    <p><a href="#">Support and Relief</a></p>
-                    <p><a href="#">Voices of Change</a></p>
-                </div>
-
-                <div class="col-md-3 mb-4">
-                    <h6>Contact</h6>
-                    <p>
-                        <i class="fas fa-map-marker-alt me-2"></i>Junior
-                        Quarters,Lira city west Division,lira cityJunior
-                        Quarters,Lira city west Division,lira city
+        <div class="footer-wrapper">
+            <!-- Top Segment: Brand & Navigation -->
+            <div class="footer-grid">
+                
+                <!-- Editorial Brand Column -->
+                <div class="brand-column">
+                    <div class="logo-group">
+                        <img
+                            src="/public/assets/images/logo1.jpg"
+                            alt="Flare Logo"
+                            class="brand-logo"
+                        />
+                        <span class="brand-name">FLARE</span>
+                    </div>
+                    <p class="brand-essence">
+                        Fostering sustainable community development, healthcare access,Education,Advocacy and environmental preservation.
                     </p>
-                    <p>
-                        <i class="fas fa-envelope me-2"></i
-                        >flareinternationalfoundation@gmail.com
-                    </p>
-                    <p><i class="fas fa-phone me-2"></i>+256-392-995-534</p>
-
-                    <h5>Follow us</h5>
-
-                    <div class="social-icons d-flex mt-3">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-x-twitter"></i></a>
-
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    
+                    <!-- Shiny Action Buttons Cluster (Partner, Donate, Volunteer) -->
+                    <div class="action-cluster">
+                        <router-link to="/contact-us" class="editorial-cta main-cta">
+                            Partner with us <span class="arrow">→</span>
+                        </router-link>
+                        
+                        <div class="shiny-buttons">
+                            <a href="https://www.gofundme.com/f/hope-in-education-help-vulnerable-ugandan-children/wa/s?utm_campaign=fp_sharesheet&utm_content=amp20_t1&utm_medium=customer&utm_source=whatsapp&lang=en_US" class="shiny-btn donate-btn">
+                                <span class="shiny-shine"></span>
+                                <i class="fas fa-heart btn-icon"></i>
+                                <span>Donate</span>
+                            </a>
+                            <a href="#" class="shiny-btn volunteer-btn">
+                                <span class="shiny-shine"></span>
+                                <i class="fas fa-hands-helping btn-icon"></i>
+                                <span>Volunteer</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Navigation Columns -->
+                <div class="links-column">
+                    <p class="column-meta">Navigation</p>
+                    <ul class="nav-list">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="links-column">
+                    <p class="column-meta">Initiatives</p>
+                    <ul class="nav-list">
+                        <li><a href="#">Health Care</a></li>
+                        <li><a href="#">Environment</a></li>
+                        <li><a href="#">Education</a></li>
+                        <li><a href="#">Relief & Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Social Column -->
+                <div class="contact-column">
+                    <p class="column-meta">Address</p>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <span class="address-text">
+                            Junior Quarters, Lira City West Division, Lira City, Uganda
+                        </span>
+                    </div>
+                    
+                    <p class="column-meta mt-4">Inquiries</p>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <a href="mailto:flareinternationalfoundation@gmail.com" class="contact-link">
+                            flareinternationalfoundation@gmail.com
+                        </a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <a href="tel:+256392995534" class="contact-link phone">
+                            +256 392 995 534
+                        </a>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="footer-bottom text-center mt-4">
-                <p class="mb-0">
-                    &copy; 2025 Flare International Foundation. All Rights
-                    Reserved. <br />Developed by
-                    <a
-                        href="https://www.cotiafrica.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        >CodeToInnovate Africa</a
-                    >
+            <!-- Bottom Segment: Legal (Centered and Cleaned) -->
+            <div class="footer-base">
+                <p class="copyright">
+                    &copy; 2026 Flare International Foundation.
                 </p>
             </div>
         </div>
 
-        <div
-            class="fixed-bottom-right"
-            style="margin-bottom: 70px; right: 20px"
-        >
+        <!-- Float Actions Dock (Toggle Button Removed) -->
+        <div class="dock-container">
             <a
-                class="twitter-dm-button w3-btn w3-green floating-icon"
-                href="https://wa.me/256-778-077-765"
+                class="dock-trigger x-theme"
+                href="https://x.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="X"
+            >
+                <i class="fab fa-x-twitter"></i>
+            </a>
+
+            <a
+                class="dock-trigger wa-theme"
+                href="https://wa.me/256778077765"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="WhatsApp"
             >
                 <i class="fab fa-whatsapp"></i>
             </a>
-        </div>
-
-        <div
-            class="fixed-bottom-right"
-            style="bottom: 80px; right: 80px; margin-bottom: 10px"
-        >
-            <!--
-                    <a
-                        class="twitter-dm-button w3-btn w3-black floating-icon"
-                        href="https://x.com/RuralAgroNet?t=2H8Iq0QbfPWcgZWlQxnYdA&s=09"
-                    >
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-
-                -->
         </div>
     </footer>
 </template>
 
 <style scoped>
-.footer-custom {
-    background-color: #1e88e5;
-    color: #eee;
-    padding-top: 60px;
-    padding-bottom: 30px;
-    border-top: 35px solid red;
-}
+/* Core Typography and Brand Design Variables */
+.editorial-footer {
+    --bg-color: #020235;
+    --text-main: #ffffff;
+    --text-muted: #94a3b8;
+    --border-thin: rgba(255, 255, 255, 0.08);
+    --accent-glow: #38bdf8;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Deep rich overlay for content readability */
+    --overlay-blend: rgba(2, 2, 53, 0.94); 
+    --shiny-btn-bg: rgba(56, 189, 248, 0.08);
+    --shiny-btn-border: rgba(56, 189, 248, 0.25);
 
-body.dark-theme-body .footer-custom {
-    background-color: #222;
-
-    border-top: 35px solid #1e88e5;
-}
-
-.footer-custom h6 {
-    color: #fff;
-    font-size: 19px;
-    font-weight: bold;
     position: relative;
-    margin-bottom: 1rem;
+    background-color: var(--bg-color);
+    background-image: url('/public/assets/images/wash1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    padding: 100px 0 40px 0;
+    border-top: 1px solid var(--border-thin);
 }
 
-.footer-custom h6::after {
-    content: "";
-    width: 40px;
-    height: 2px;
-    display: block;
-    margin-top: 8px;
+/* Overlay Layer */
+.footer-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--overlay-blend);
+    z-index: 1;
 }
 
-body.dark-theme-body .footer-custom h6::after {
-    content: "";
-    width: 40px;
-    height: 2px;
-    display: block;
-    margin-top: 8px;
+/* Content wrapper raised above the overlay */
+.footer-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
 }
 
-.footer-custom a {
-    color: white;
-    text-decoration: none;
+/* Grid Alignment */
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 60px;
+    padding-bottom: 60px;
 }
 
-.footer-custom a:hover {
-    color: #1e88e5;
-}
-
-.footer-logo {
-    max-width: 90px;
-    margin-bottom: 15px;
-}
-
-.social-icons a {
-    color: white;
-    font-size: 1.2rem;
-    margin-right: 15px;
-    transition: color 0.3s ease;
-}
-
-body.dark-theme-body .social-icons a {
-    color: white;
-}
-
-.social-icons a:hover {
-    color: #1e88e5;
-}
-
-body.dark-theme-body .social-icons a:hover {
-    color: white;
-}
-
-.footer-bottom {
-    border-top: 1px solid white;
-    margin-top: 30px;
-    padding-top: 15px;
-    font-size: 0.9rem;
-}
-
-@media (max-width: 576px) {
-    .footer-custom {
-        text-align: center;
-    }
-
-    .footer-logo {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 15px;
-    }
-
-    .social-icons {
-        justify-content: center !important;
-    }
-
-    .footer-custom h6::after {
-        margin-left: auto;
-        margin-right: auto;
+@media (max-width: 991px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
     }
 }
 
-.button-group {
+@media (max-width: 575px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+/* Brand Area */
+.brand-column {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 1rem;
+    align-items: flex-start;
 }
 
-.button-group a {
-    display: block;
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.brand-logo {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--text-main);
+}
+
+.brand-essence {
+    font-size: 16.5px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    max-width: 340px;
+}
+
+/* Action Cluster */
+.action-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
+}
+
+/* Minimal Link CTA */
+.editorial-cta {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-main);
     text-decoration: none;
-    padding: 14px 28px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 1.1em;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+}
+
+.main-cta {
+    gap: 8px;
+}
+
+.main-cta .arrow {
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.main-cta:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* Elegant Shiny Glassmorphic Action Buttons */
+.shiny-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.shiny-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    color: var(--text-main);
+    background-color: var(--shiny-btn-bg);
+    border: 1px solid var(--shiny-btn-border);
+    border-radius: 30px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.btn-icon {
+    font-size: 15px;
+    color: var(--accent-glow);
+    transition: transform 0.3s ease;
+}
+
+/* The Animated Shine Effect */
+.shiny-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: none;
+}
+
+/* Hover Physics */
+.shiny-btn:hover {
+    color: #ffffff !important;
+    background-color: var(--accent-glow);
+    border-color: var(--accent-glow);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
+    transform: translateY(-2px);
+}
+
+.shiny-btn:hover .btn-icon {
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* Trigger the shine swipe on hover */
+.shiny-btn:hover .shiny-shine {
+    left: 150%;
+    transition: left 0.6s ease-in-out;
+}
+
+/* Meta Headers */
+.column-meta {
+    font-size: 13.5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+.mt-4 {
+    margin-top: 24px;
+}
+
+/* Clean Link Lists */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list li {
+    margin-bottom: 12px;
+}
+
+.nav-list a {
+    font-size: 16.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.nav-list a:hover {
+    color: var(--text-main);
+}
+
+/* Contact Details */
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    transition: transform 0.25s ease;
+}
+
+.contact-icon {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    transition: color 0.25s ease, transform 0.25s ease;
+    width: 18px;
     text-align: center;
 }
 
-#one {
-    color: white;
+.address-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    transition: color 0.25s ease;
 }
 
-#one:hover {
-    color: #1e88e5;
-    font-weight: bold;
+.contact-link {
+    display: inline-block;
+    font-size: 16px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.25s ease;
 }
 
-.download-btn {
-    border: 2px solid white;
-    color: black;
+.contact-link.phone {
+    font-weight: 600;
+    color: var(--text-main);
 }
 
-body.dark-theme-body .download-btn {
-    border: 2px solid #1e88e5;
+/* Contact Hover Interactions */
+.contact-item:hover {
+    transform: translateX(3px);
 }
 
-.download-btn:hover {
-    background-color: white;
-    color: #1e88e5;
+.contact-item:hover .contact-icon {
+    color: var(--accent-glow);
+    transform: scale(1.15);
+}
+
+.contact-item:hover .address-text,
+.contact-item:hover .contact-link {
+    color: var(--text-main);
+}
+
+/* Borderless Social Links */
+.social-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 25px;
+}
+
+.social-links a {
+    color: var(--text-muted);
+    font-size: 18px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--text-main);
     transform: translateY(-2px);
 }
 
-#two {
-    color: #1e88e5;
-}
-
-.story-btn {
-    background-color: white;
-    color: #fff;
-}
-
-body.dark-theme-body .story-btn {
-    background-color: #1e88e5;
-    color: white;
-}
-
-body.dark-theme-body #two {
-    color: white;
-}
-
-.story-btn:hover {
-    background-color: white;
-    transform: translateY(-2px);
-}
-
-@media (max-width: 600px) {
-    .button-group {
-        padding: 0.5rem;
-    }
-
-    .button-group a {
-        font-size: 1em;
-        padding: 12px 24px;
-    }
-}
-
-.fixed-bottom-right {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    z-index: 1000;
-}
-
-.floating-icon {
+/* Base Metainfo Row (Fully Centered Layout) */
+.footer-base {
+    border-top: 1px solid var(--border-thin);
+    padding-top: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50px;
+    text-align: center;
+}
+
+.copyright {
+    font-size: 15px;
+    margin: 0;
+}
+
+/* Pure Minimal Floating Action Dock */
+.dock-container {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.dock-trigger {
     width: 40px;
     height: 40px;
-    font-size: 20px;
-    color: white;
-    text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-}
-
-.w3-btn {
-    padding: 8px 16px;
-    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
     cursor: pointer;
-    display: inline-block;
-    text-align: center;
-    background-color: transparent;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    border: 1px solid var(--border-thin);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    text-decoration: none;
 }
 
-.w3-green {
-    background-color: #4caf50 !important;
+.dock-trigger:hover {
+    transform: translateY(-3px);
+    border-color: var(--text-main);
 }
 
-.w3-black {
-    background-color: #000 !important;
+.dock-trigger.wa-theme:hover {
+    background-color: #25d366;
+    color: #ffffff;
+    border-color: #25d366;
+}
+
+.dock-trigger.x-theme:hover {
+    background-color: var(--text-main);
+    color: var(--bg-color);
+    border-color: var(--text-main);
 }
 </style>

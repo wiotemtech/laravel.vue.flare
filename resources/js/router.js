@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { nextTick } from "vue";
 
 import HomePage from "./views/HomePage.vue";
 import About from "./views/About.vue";
@@ -6,13 +7,16 @@ import Contact from "./views/Contact.vue";
 import NotFound from "./views/NotFound.vue";
 import Gallery from "./views/Gallery.vue";
 import Blogs from "./views/Blogs.vue";
+import Volunteer from "./components/Volunteer.vue"
+
 
 const routes = [
     { path: "/", name: "Home", component: HomePage },
     { path: "/about-us", name: "About", component: About },
-{ path: "/our-gallery", name:"Gallery", component:Gallery},
+    { path: "/our-gallery", name: "Gallery", component: Gallery },
     { path: "/contact-us", name: "Contact", component: Contact },
-{ path:"/blogs",name:"Blogs",component:Blogs},
+    { path: "/blogs", name: "Blogs", component: Blogs },
+    { path: "/projects", name: "Volunteer", component: Volunteer },
    
     {
         path: "/:pathMatch(.*)*",
@@ -25,6 +29,21 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+
+    scrollBehavior(to, from, savedPosition) {
+        return { top: 0, left: 0 };
+    },
+});
+
+// Ensure scroll to top happens after route transition and DOM is ready
+router.afterEach(() => {
+    nextTick(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "auto"
+        });
+    });
 });
 
 export default router;

@@ -7,7 +7,7 @@
 <title>Flare International Foundation</title>
 <!-- Favicon -->
 
-<link rel="icon" href="{{ asset('assets/images/flare.png') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('assets/images/logo1.jpg') }}" type="image/x-icon">
 
 <!-- Fonts -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
