@@ -269,7 +269,7 @@ onUnmounted(() => {
 }
 
 .hero-content p {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size:25px;
   color: #94a3b8; 
   max-width: 600px;
   margin: 0 auto;

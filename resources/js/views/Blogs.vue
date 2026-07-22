@@ -342,7 +342,7 @@ const getBadgeClass = (category) => {
 }
 
 .hero-content p {
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size:25px;
     color: #94a3b8; 
     max-width: 580px;
     line-height: 1.6;
@@ -370,7 +370,7 @@ const getBadgeClass = (category) => {
     color: #475569;
     padding: 10px 22px;
     border-radius: 100px;
-    font-size: 0.85rem;
+    font-size:17px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -477,7 +477,7 @@ const getBadgeClass = (category) => {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.75rem;
+    font-size:17px;
     font-weight: 600;
     color: #64748b;
     margin-bottom: 12px;
@@ -510,7 +510,7 @@ const getBadgeClass = (category) => {
 }
 
 .blog-post-excerpt {
-    font-size: 0.925rem;
+    font-size:18px;
     color: #475569;
     line-height: 1.6;
     flex-grow: 1;
@@ -550,7 +550,7 @@ const getBadgeClass = (category) => {
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size:17px;
 }
 
 .dark-theme .author-avatar {
@@ -569,14 +569,14 @@ const getBadgeClass = (category) => {
 }
 
 .author-label {
-    font-size: 0.6rem;
+    font-size:17px;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: #94a3b8;
 }
 
 .blog-post-author {
-    font-size: 0.825rem;
+    font-size:17px;
     font-weight: 600;
     color: #334155;
 }
@@ -590,7 +590,7 @@ const getBadgeClass = (category) => {
     background: #f8fafc;
     border: none;
     color: #0f172a;
-    font-size: 0.8rem;
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
@@ -667,7 +667,7 @@ const getBadgeClass = (category) => {
 }
 
 .no-blogs-message p {
-    font-size: 0.875rem;
+    font-size:22px;
     color: #64748b;
     line-height: 1.5;
 }
@@ -722,7 +722,7 @@ const getBadgeClass = (category) => {
 }
 
 .modal-eyebrow-tag {
-    font-size: 0.7rem;
+    font-size:17px;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: #3b82f6;
@@ -834,7 +834,7 @@ const getBadgeClass = (category) => {
 }
 
 .modal-full-text {
-    font-size: 1.05rem;
+    font-size:18px;
     line-height: 1.75;
     color: #334155;
     white-space: pre-wrap;

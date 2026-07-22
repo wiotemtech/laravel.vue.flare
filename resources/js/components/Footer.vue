@@ -1,5 +1,10 @@
 <script setup>
-// Dark theme toggle removed
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
 </script>
 
 <template>
@@ -37,7 +42,7 @@
                                 <i class="fas fa-heart btn-icon"></i>
                                 <span>Donate</span>
                             </a>
-                            <a href="#" class="shiny-btn volunteer-btn">
+                            <a href="/contact-us" class="shiny-btn volunteer-btn">
                                 <span class="shiny-shine"></span>
                                 <i class="fas fa-hands-helping btn-icon"></i>
                                 <span>Volunteer</span>
@@ -50,21 +55,26 @@
                 <div class="links-column">
                     <p class="column-meta">Navigation</p>
                     <ul class="nav-list">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Gallery</a></li>
-                        <li><a href="#">Volunteer</a></li>
-                        <li><a href="#">Donate</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/About-us">About Us</a></li>
+                        <li><a href="/projects">Programs</a></li>
+                        <li><a href="/blogs">Blogs</a></li>
+                        <li><a href="/our-gallery">Gallery</a></li>
+                        <li><a href="/contact-us">Contact Us</a></li>
                     </ul>
                 </div>
 
                 <div class="links-column">
                     <p class="column-meta">Initiatives</p>
                     <ul class="nav-list">
-                        <li><a href="#">Health Care</a></li>
-                        <li><a href="#">Environment</a></li>
-                        <li><a href="#">Education</a></li>
-                        <li><a href="#">Relief & Support</a></li>
+                        <li><a href="#">Education and Training</a></li>
+                        <li><a href="#">Health,Nutrition and Clean Water</a></li>
+                        <li><a href="#">Climate Action</a></li>
+                        <li><a href="#">Economic Empowerment</a></li>
+                        <li><a href="#">Advocacy and Social Inclusion</a></li>
+                        <li><a href="#">Support and Relief</a></li>
+                        
+                        
                     </ul>
                 </div>
 
@@ -91,13 +101,17 @@
                             +256 392 995 534
                         </a>
                     </div>
+                    <div class="contact-item">
+                         <i class="fas fa-clock contact-icon"></i>
+                         <span class="contact-text">Working Hours: 8:00 AM - 5:00 PM</span>
+                     </div>
 
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <!--<a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>-->
+                        <a href="https://www.youtube.com/@FlareinternationalFoundati-i4y" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/in/flare-international-foundation-4b0386424/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/FlareUG" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                        <!--<a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>-->
                     </div>
                 </div>
 
@@ -115,7 +129,7 @@
         <div class="dock-container">
             <a
                 class="dock-trigger x-theme"
-                href="https://x.com"
+                href="https://x.com/FlareUG"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="X"
@@ -125,13 +139,21 @@
 
             <a
                 class="dock-trigger wa-theme"
-                href="https://wa.me/256778077765"
+                href="https://wa.me/256392995534"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="WhatsApp"
             >
                 <i class="fab fa-whatsapp"></i>
             </a>
+
+            <button
+                class="dock-trigger top-theme"
+                @click="scrollToTop"
+                title="Back to Top"
+            >
+                <i class="fas fa-arrow-up"></i>
+            </button>
         </div>
     </footer>
 </template>
@@ -233,7 +255,7 @@
 }
 
 .brand-essence {
-    font-size: 16.5px;
+    font-size: 20px;
     line-height: 1.6;
     margin-bottom: 25px;
     max-width: 340px;
@@ -285,7 +307,7 @@
     align-items: center;
     gap: 8px;
     padding: 12px 24px;
-    font-size: 14px;
+    font-size:16px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -344,7 +366,7 @@
 
 /* Meta Headers */
 .column-meta {
-    font-size: 13.5px;
+    font-size:17px;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 700;
@@ -368,7 +390,7 @@
 }
 
 .nav-list a {
-    font-size: 16.5px;
+    font-size:20px;
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.25s ease;
@@ -388,7 +410,7 @@
 }
 
 .contact-icon {
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text-muted);
     margin-top: 5px;
     transition: color 0.25s ease, transform 0.25s ease;
@@ -397,7 +419,7 @@
 }
 
 .address-text {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
     color: var(--text-muted);
     transition: color 0.25s ease;
@@ -405,7 +427,7 @@
 
 .contact-link {
     display: inline-block;
-    font-size: 16px;
+    font-size: 18px;
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.25s ease;
@@ -460,7 +482,7 @@
 }
 
 .copyright {
-    font-size: 15px;
+    font-size: 20px;
     margin: 0;
 }
 
@@ -482,7 +504,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 25px;
     cursor: pointer;
     background-color: var(--bg-color);
     color: var(--text-main);

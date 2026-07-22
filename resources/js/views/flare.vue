@@ -226,16 +226,16 @@ onUnmounted(() => {
 
 .metrics-tag {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.15em;
   color: var(--accent-color);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .metrics-heading {
-  font-size: 2.85rem;
+  font-size: 2.5rem;
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.03em;
