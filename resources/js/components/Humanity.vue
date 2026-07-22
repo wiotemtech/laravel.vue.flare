@@ -3,7 +3,10 @@
     class="humanity-section"
     :class="{ 'dark-theme': props.isDarkMode }"
   >
-    <div class="humanity-header">
+    <div 
+      class="humanity-header scroll-reveal" 
+      :ref="(el) => { if (el) headerRef = el; }"
+    >
       <span class="section-tag">Humanitarian Action</span>
       <h2 class="section-title">Our Humanity in Action</h2>
     </div>
@@ -12,9 +15,10 @@
       <div
         v-for="(card, index) in cardsData"
         :key="index"
-        class="humanity-card-item humanity-card-animate-hidden"
+        class="humanity-card-item scroll-reveal"
+        :class="index % 2 === 0 ? 'reveal-left' : 'reveal-right'"
         :ref="(el) => { if (el) cardRefs[index] = el; }"
-        :style="{ transitionDelay: `${index * 0.15}s` }"
+        :style="{ transitionDelay: `${index * 0.2}s` }"
       >
         <!-- Card Background & Media -->
         <div class="card-media-wrapper">
@@ -33,8 +37,6 @@
         </div>
       </div>
     </div>
-
-    
   </section>
 </template>
 
@@ -63,6 +65,7 @@ const cardsData = ref([
   },
 ]);
 
+const headerRef = ref(null);
 const cardRefs = ref([]);
 let observer = null;
 
@@ -70,11 +73,15 @@ onMounted(() => {
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("humanity-card-animate-visible");
+        entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
       }
     });
-  }, { rootMargin: "0px", threshold: 0.1 });
+  }, { rootMargin: "0px 0px -50px 0px", threshold: 0.15 });
+
+  if (headerRef.value) {
+    observer.observe(headerRef.value);
+  }
 
   cardRefs.value.forEach((el) => {
     if (el) observer.observe(el);
@@ -98,10 +105,12 @@ onUnmounted(() => {
 
   background-color: var(--bg-color);
   color: var(--text-primary);
-  padding: 120px 8%;
+  /* Reduced top padding from 120px to 60px */
+  padding: 60px 8% 120px 8%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   transition: background-color 0.5s ease, color 0.5s ease;
   text-align: center;
+  overflow: hidden; /* Prevents overflow layout shifts during slide-in */
 }
 
 .humanity-section.dark-theme {
@@ -127,6 +136,7 @@ onUnmounted(() => {
   color: var(--accent-color);
   display: inline-block;
   margin-bottom: 12px;
+  
 }
 
 .section-title {
@@ -241,56 +251,36 @@ onUnmounted(() => {
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
 }
 
-/* Call To Action Area */
-.action-wrapper {
-  margin-top: 60px;
-}
-
-.donate-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 36px;
-  background-color: var(--accent-color);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 50px;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.donate-button:hover {
-  background-color: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25);
-}
-
-.arrow-icon {
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.donate-button:hover .arrow-icon {
-  transform: translateX(4px);
-}
-
-/* Intersection Scroll Animations */
-.humanity-card-animate-hidden {
+/* Scroll Reveal Animation Classes */
+.scroll-reveal {
   opacity: 0;
-  transform: translateY(40px);
-}
-
-.humanity-card-animate-visible {
-  opacity: 1;
-  transform: translateY(0);
+  transform: translateY(30px);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
               transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.humanity-header.scroll-reveal {
+  transform: translateY(-30px);
+}
+
+.humanity-card-item.reveal-left {
+  transform: translateX(-70px);
+}
+
+.humanity-card-item.reveal-right {
+  transform: translateX(70px);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 /* Responsive Styles */
 @media (max-width: 992px) {
   .humanity-section {
-    padding: 100px 6%;
+    /* Also reduced responsive top padding */
+    padding: 50px 6% 100px 6%;
   }
 
   .section-title {
@@ -312,12 +302,22 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .humanity-section {
-    padding: 80px 5%;
+    /* Also reduced responsive top padding */
+    padding: 40px 5% 80px 5%;
   }
 
   .cards-container {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+
+  /* Seamless transition for mobile screens: alternate slide directions or clean vertical fade */
+  .humanity-card-item.reveal-left {
+    transform: translateX(-40px);
+  }
+
+  .humanity-card-item.reveal-right {
+    transform: translateX(40px);
   }
 
   .humanity-card-item {

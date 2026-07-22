@@ -323,6 +323,7 @@ onUnmounted(() => {
   padding: 20px;
   border-radius: 20px;
   display: flex;
+  
   flex-direction: column;
   align-items: center; 
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
@@ -360,7 +361,7 @@ onUnmounted(() => {
 }
 
 .hero-content p {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size:25px;
   color: #94a3b8; 
   max-width: 600px;
   margin: 0 auto;
@@ -409,10 +410,11 @@ onUnmounted(() => {
   height: 100%;
   display: flex;
   flex-direction: column;
+  font-size:17px;
 }
 
 .card-tag {
-  font-size: 0.75rem;
+  font-size:17px;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--primary);
@@ -429,13 +431,13 @@ onUnmounted(() => {
 
 .subtitle {
   color: var(--text-muted);
-  font-size: 1.05rem;
+  font-size:20px;
   line-height: 1.5;
   margin-bottom: 40px;
 }
 
 .font-sm {
-  font-size: 0.95rem;
+  font-size:20px;
   margin-bottom: 30px;
 }
 
@@ -512,7 +514,7 @@ onUnmounted(() => {
 }
 
 .item-text .label {
-  font-size: 0.75rem;
+  font-size:17px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -566,7 +568,7 @@ onUnmounted(() => {
   left: 16px;
   top: 18px;
   color: var(--text-muted);
-  font-size: 1rem;
+  font-size:20px;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   pointer-events: none;
 }
@@ -597,7 +599,7 @@ onUnmounted(() => {
   border: none;
   border-radius: 14px;
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size:20px;
   cursor: pointer;
   display: flex;
   align-items: center;

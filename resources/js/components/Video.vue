@@ -15,7 +15,7 @@
       <div class="section-header">
         <span class="section-tagline">Stories of Transformation</span>
         <h2 class="section-title">Voices of Change</h2>
-        <p class="section-subtitle">Real people. Real impact. Watch how your support reshapes lives and builds resilient communities.</p>
+        <p class="section-subtitle">Real impact,Watch how your support reshapes lives and builds resilient communities.</p>
       </div>
 
       <div class="gallery-strip">

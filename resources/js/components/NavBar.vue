@@ -1,23 +1,9 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted } from "vue";
 
 // Reactive State
 const isDarkMode = ref(false);
 const menuOpen = ref(false);
-const showDropdown = ref(false);
-const currentIndex = ref(0);
-const slides = ref([1, 2, 3]);
-let intervalId = null;
-
-// Methods
-const toggleDropdown = () => {
-    showDropdown.value = !showDropdown.value;
-};
-
-const closeDropdown = () => {
-    showDropdown.value = false;
-    closeMenu();
-};
 
 const toggleTheme = () => {
     isDarkMode.value = !isDarkMode.value;
@@ -29,18 +15,6 @@ const closeMenu = () => {
     menuOpen.value = false;
 };
 
-const nextSlide = () => {
-    currentIndex.value = (currentIndex.value + 1) % slides.value.length;
-};
-
-const startSlider = () => {
-    intervalId = setInterval(nextSlide, 6000);
-};
-
-const stopSlider = () => {
-    if (intervalId) clearInterval(intervalId);
-};
-
 // Lifecycle Hooks
 onMounted(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -48,11 +22,6 @@ onMounted(() => {
         isDarkMode.value = true;
         document.body.classList.add("dark-theme-body");
     }
-    startSlider();
-});
-
-onBeforeUnmount(() => {
-    stopSlider();
 });
 </script>
 
@@ -61,24 +30,24 @@ onBeforeUnmount(() => {
         <!-- Top Info Header -->
         <div class="top-header">
             <div class="top-header-container">
-                <p class="top-header-left-info">
-                    <span><i class="fas fa-map-marker-alt contact-icon"></i></span>
-                    Junior Quarters, Lira City
-                </p>
+                <div class="top-header-left-info">
+                    <span class="icon-bubble"><i class="fas fa-map-marker-alt"></i></span>
+                    <span>Junior Quarters, Lira City</span>
+                </div>
 
                 <div class="top-header-center-info">
                     <p>
-                        <span><i class="fas fa-envelope"></i></span>
+                        <span class="icon-bubble"><i class="fas fa-envelope"></i></span>
                         <a href="mailto:flareinternationalfoundation@gmail.com">flareinternationalfoundation@gmail.com</a>
                     </p>
                 </div>
 
                 <div class="top-header-social">
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <!--<a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>-->
+                    <a href="https://www.youtube.com/@FlareinternationalFoundati-i4y" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/flare-international-foundation-4b0386424/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://x.com/FlareUG" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <!--<a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>-->
                 </div>
             </div>
         </div>
@@ -91,20 +60,26 @@ onBeforeUnmount(() => {
                     class="navbar-brand logo"
                     :class="{ 'dark-theme-logo': isDarkMode }"
                 >
-                    <img
-                        src="/public/assets/images/logo1.JPG"
-                        alt="Flare Logo"
-                        class="logo-img"
-                    />
-                    <span class="logo-text">FLARE INTERNATIONAL<br><span class="">FOUNDATION</span></span>
+                    <div class="logo-frame">
+                        <img
+                            src="/public/assets/images/logo1.jpg"
+                            alt="Flare Logo"
+                            class="logo-img"
+                        />
+                    </div>
+                    <div class="logo-text-group">
+                        <span class="logo-title">FLARE INTERNATIONAL</span>
+                        <span class="logo-subtitle">FOUNDATION</span>
+                    </div>
                 </router-link>
 
-                <!-- Menu Controls -->
+                <!-- Menu Controls with Prominent Touch Target -->
                 <input type="checkbox" id="check" v-model="menuOpen" />
                 <label
                     for="check"
                     class="icons"
                     :class="{ 'dark-theme-icons': isDarkMode }"
+                    aria-label="Toggle Navigation Menu"
                 >
                     <i class="bx bx-menu" id="menu-icon" v-show="!menuOpen"></i>
                     <i class="bx bx-x" id="close-icon" v-show="menuOpen"></i>
@@ -118,55 +93,20 @@ onBeforeUnmount(() => {
                         'dark-theme-navbar': isDarkMode,
                     }"
                 >
-                    <router-link
-                        to="/"
-                        :class="{ 'dark-theme-link': isDarkMode }"
-                        @click="closeMenu"
-                        style="--i: 1"
-                    >HOME</router-link>
+                    <router-link to="/" @click="closeMenu" style="--i: 1">HOME</router-link>
+                    <router-link to="/About-us" @click="closeMenu" style="--i: 2">ABOUT US</router-link>
+                    <router-link to="/projects" @click="closeMenu" style="--i: 3">PROGRAMS</router-link>
+                    <router-link to="/blogs" @click="closeMenu" style="--i: 4">BLOGS</router-link>
+                    <router-link to="/our-gallery" @click="closeMenu" style="--i: 5">GALLERY</router-link>
+                    <router-link to="/contact-us" @click="closeMenu" style="--i: 6">CONTACT US</router-link>
 
-                    <router-link
-                        to="/About-us"
-                        :class="{ 'dark-theme-link': isDarkMode }"
-                        @click="closeMenu"
-                        style="--i: 2"
-                    >ABOUT US</router-link>
-
-                     <router-link
-                        to="/projects"
-                        :class="{ 'dark-theme-link': isDarkMode }"
-                        @click="closeMenu"
-                        style="--i: 3"
-                    >PROGRAMS</router-link>
-
-                    <router-link
-                        to="/blogs"
-                        :class="{ 'dark-theme-link': isDarkMode }"
-                        @click="closeMenu"
-                        style="--i: 3"
-                    >BLOGS</router-link>
-
-                    <router-link
-                        to="/our-gallery"
-                        :class="{ 'dark-theme-link': isDarkMode }"
-                        @click="closeMenu"
-                        style="--i: 4"
-                    >GALLERY</router-link>
-
-                    <router-link
-                        to="/contact-us"
-                        :class="{ 'dark-theme-link': isDarkMode }"
-                        @click="closeMenu"
-                        style="--i: 5"
-                    >CONTACT US</router-link>
-
-                    <!-- Icon-Only Theme Controller -->
+                    <!-- Professional Theme Controller -->
                     <button
                         @click="toggleTheme(); closeMenu();"
                         class="theme-toggle"
                         :class="{ 'dark-theme-button': isDarkMode }"
                         :aria-label="isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
-                        style="--i: 6"
+                        style="--i: 7"
                     >
                         <i :class="isDarkMode ? 'bx bx-sun' : 'bx bx-moon'"></i>
                     </button>
@@ -180,31 +120,33 @@ onBeforeUnmount(() => {
 /* Global Base Layout & Resets */
 body,
 html {
-    margin: 0px;
+    margin: 0;
     padding: 0;
     height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     overflow-x: hidden;
-    background-color: white;
-    color: #2c3e50;
-    transition: background-color 0.4s ease, color 0.4s ease;
-    padding-top: 65px; /* Increased padding to support the taller, spaced-out header rules */
+    background-color: #ffffff;
+    color: #1e293b;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding-top: 75px;
 }
 
 body.dark-theme-body {
-    background-color: #0f1013;
-    color: #e2e8f0;
+    background-color: #0b0f17;
+    color: #f1f5f9;
 }
 
-/* INNER CONTAINER FOR ALIGNMENT */
+/* CENTERED CONTAINERS WITH GENEROUS MARGINS */
 .top-header-container,
 .header-container {
     width: 100%;
-    max-width: 1200px; /* Brought max-width down from 1280px to pull content more inward */
+    max-width: 1140px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
+    padding: 0 24px;
 }
 
 /* TOP METADATA BAR */
@@ -213,46 +155,35 @@ body.dark-theme-body {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: red;
+    background-color:red;
     color: #ffffff;
-    padding: 12px 6%; /* Increased from 10px 4% for deep layout inset padding */
+    padding: 10px 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     z-index: 1000;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-    font-size: 13px;
-    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
     box-sizing: border-box;
 }
 
-.top-header-left-info {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-}
-
-.top-header-left-info span {
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-.top-header-center-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 13px;
-}
-
+.top-header-left-info,
 .top-header-center-info p {
     margin: 0;
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
-.top-header-center-info p span {
-    margin-right: 8px;
+.top-header-left-info .icon-bubble,
+.top-header-center-info .icon-bubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    opacity: 0.9;
 }
 
 .top-header-center-info a {
@@ -262,273 +193,330 @@ body.dark-theme-body {
 }
 
 .top-header-center-info a:hover {
-    opacity: 0.85;
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
 .top-header-social {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
 }
 
 .top-header-social a {
     color: #ffffff;
-    font-size: 14px;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    font-size: 13px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .top-header-social a:hover {
+    background-color: #ffffff;
+    color: red;
     transform: translateY(-2px);
-    opacity: 0.85;
 }
 
 /* MAIN NAVIGATION HEADER */
 .header {
     position: fixed;
-    top: 45px; /* Increased from 38px to give more space between top-header and main header */
+    top: 39px;
     left: 0;
     width: 100%;
-    padding: 20px 6%; /* Increased to 6% to push logo and dark theme icon inward from screen margins */
-    background-color: white;
+    padding: 14px 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
+    justify-content: center;
     z-index: 999;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: background-color 0.4s ease, top 0.3s ease, padding 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
     box-sizing: border-box;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
 }
 
 .dark-theme-header {
-    background-color: #141519 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* LOGO GROUP */
 .navbar-brand.logo {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     text-decoration: none;
     flex-shrink: 0;
 }
 
-.logo-img {
-    height: 56px;
-    width: auto;
-    object-fit: contain;
+.logo-frame {
+    width: 84px;
+    height: 44px;
+    /* Restored border-radius and background box look */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
 }
 
-.logo-text {
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 1.15;
+.dark-theme-header .logo-frame {
+    background: #1e293b;
+    border-color: rgba(255,255,255,0.08);
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.1;
     color: red;
     letter-spacing: 0.5px;
+    transition: color 0.3s ease;
 }
 
-.logo-subtext {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
-    opacity: 0.9;
+.dark-theme-header .logo-title {
+    color: #f8fafc;
+}
+
+.logo-subtitle {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #1e88e5;
+    margin-top: 2px;
 }
 
 /* NAVBAR LINKS */
 .navbar {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 4px;
     margin-left: auto;
 }
 
 .navbar a {
-    color: black;
+    color: #475569;
     text-decoration: none;
     font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.8px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
     position: relative;
-    padding: 8px 2px;
-    transition: color 0.3s ease;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.dark-theme-header .navbar a {
+    color: #94a3b8;
 }
 
 .navbar a:hover,
 .navbar a.router-link-active {
-    color: #1e88e5;
+    color: #2563eb;
+    background-color: rgba(37, 99, 235, 0.08);
+}
+
+.dark-theme-header .navbar a:hover,
+.dark-theme-header .navbar a.router-link-active {
+    color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.12);
 }
 
 .navbar a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 3px;
-    background: #1e88e5;
-    left: 0;
-    bottom: 0;
-    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    display: none;
 }
 
-.navbar a:hover::after,
-.navbar a.router-link-active::after {
-    width: 100%;
-}
-
-/* MENU ICONS (MOBILE) */
+/* MENU ICONS & HAMBURGER */
 .icons {
-    font-size: 32px;
-    color: #1e88e5;
+    font-size: 46px;
+    color: black;
     display: none;
     cursor: pointer;
     align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
     z-index: 1001;
+    transition: all 0.2s ease;
+}
+
+.dark-theme-header .icons {
+    color: #f8fafc;
+    background-color: #1e293b;
+    border-color: rgba(255, 255, 255, 0.08);
 }
 
 #check {
     display: none;
 }
 
-/* ICON-ONLY THEME CONTROLLER */
+/* THEME CONTROLLER TOGGLE BUTTON */
 .theme-toggle {
-    background: none;
-    border: none;
-    padding: 10px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    color: #ffffff;
-    font-size: 20px;
+    color: #475569;
+    font-size: 15px;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
     outline: none;
-    margin-left: 16px; /* Added an extra margin cushion between dark mode toggle and nav links */
+    margin-left: 6px;
 }
 
 .theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    transform: scale(1.08);
+    background-color: #1e88e5;
+    color: #ffffff;
+    border-color: white;
+    transform: rotate(15deg) scale(1.05);
 }
 
-.dark-theme-button.theme-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.08);
+.dark-theme-header .theme-toggle {
+    background-color: white;
+    border-color: rgba(255, 255, 255, 0.08);
+    color: black;
 }
 
-/* RESPONSIVE LAYOUT (TABLETS & MOBILE) */
+.dark-theme-header .theme-toggle:hover {
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+/* RESPONSIVE BREAKPOINTS (TABLETS & MOBILE) */
 @media (max-width: 991px) {
     body {
-        padding-top: 215px;
-    }
-
-    .top-header-container,
-    .header-container {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .header-container {
-        flex-direction: row;
-        justify-content: space-between;
+        padding-top: 75px;
     }
 
     .top-header {
-        padding: 12px 6%;
+        display: none !important;
     }
 
     .header {
-        top: 83px; /* Re-balanced drop point based on taller top-bar bounds */
-        padding: 16px 6%;
+        top: 0;
+    }
+
+    .header-container {
+        padding: 0 16px;
+    }
+
+    /* Increased logo size and frame dimensions on mobile screens */
+    .logo-frame {
+        width: 50px;
+        height: 31px;
+        
+    }
+
+    .logo-title {
+        font-size: 15px;
+    }
+
+    .logo-subtitle {
+        font-size: 11px;
     }
 
     .icons {
         display: inline-flex;
     }
 
+    /* Smooth half-screen slide-in drawer from the right */
     .navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #ffffff;
+        position: fixed;
+        top: 75px;
+        right: -50%; /* Hidden off-screen to the right */
+        width: 50%; /* Covers exactly half of the mobile screen width */
+        height: calc(100vh - 75px);
+        background-color: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         flex-direction: column;
         align-items: stretch;
-        padding: 24px 6%;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
-        display: none;
-        border-top: 1px solid #f1f3f5;
+        padding: 24px 20px;
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+        display: flex; /* Kept flex active so transitions can interpolate smoothly */
+        visibility: hidden;
+        pointer-events: none;
+        border-left: 1px solid #e2e8f0;
         box-sizing: border-box;
-        gap: 0;
+        gap: 8px;
         margin-left: 0;
-        
+        transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.4s ease;
+        z-index: 998;
     }
 
     .dark-theme-header .navbar {
-        background-color: #141519;
-        border-top-color: rgba(255, 255, 255, 0.05);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+        background-color: rgba(15, 23, 42, 0.98);
+        border-left-color: rgba(255, 255, 255, 0.06);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
     }
 
     .navbar a {
-        color: #495057;
-        font-size: 16px;
-        padding: 16px 0;
+        color: #334155;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 12px 14px;
+        border-radius: 8px;
         border-bottom: 1px solid #f1f5f9;
-        transform: translateY(-15px);
-        opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+        transition: color 0.2s ease, background-color 0.2s ease, padding-left 0.2s ease;
     }
 
     .dark-theme-header .navbar a {
-        color: #a0a0ab;
+        color: #cbd5e1;
         border-bottom-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .navbar a::after {
-        display: none;
     }
 
     .navbar a:hover,
     .navbar a.router-link-active {
-        color: #1e88e5;
+        color: #2563eb;
+        background-color: rgba(37, 99, 235, 0.08);
+        padding-left: 18px;
     }
 
     .dark-theme-header .navbar a:hover,
     .dark-theme-header .navbar a.router-link-active {
-        color: #38bdf8;
+        color: #3b82f6;
+        background-color: rgba(59, 130, 246, 0.12);
     }
 
     .theme-toggle {
-        margin-top: 20px;
+        margin-top: auto; /* Pushes the theme controller neatly to the bottom of the sliding drawer */
         align-self: center;
-        width: 50px;
-        height: 50px;
-        color: #2c3e50;
-        transform: translateY(-15px);
-        opacity: 0;
-        transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+        width: 44px;
+        height: 44px;
         margin-left: 0;
     }
 
-    .theme-toggle:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .dark-theme-header .theme-toggle {
-        color: #e2e8f0;
-    }
-
-    .dark-theme-header .theme-toggle:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-
+    /* Trigger slide-in animation smoothly when checkbox is checked */
     #check:checked ~ .navbar {
-        display: flex;
-    }
-
-    #check:checked ~ .navbar a,
-    #check:checked ~ .navbar .theme-toggle {
-        transform: translateY(0);
-        opacity: 1;
-        transition-delay: calc(0.08s * var(--i));
+        right: 0;
+        visibility: visible;
+        pointer-events: auto;
     }
 }
 </style>
