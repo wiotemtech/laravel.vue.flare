@@ -62,7 +62,7 @@ onMounted(() => {
                 >
                     <div class="logo-frame">
                         <img
-                            src="/public/assets/images/logo1.jpg"
+                            src="/public/assets/images/logo1.JPG"
                             alt="Flare Logo"
                             class="logo-img"
                         />
