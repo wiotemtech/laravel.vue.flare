@@ -57,7 +57,6 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: flareinternationalfoundation.org/
-          protocol: ftp
           
           exclude: |
             **/.git*
@@ -72,4 +71,3 @@ jobs:
         if: failure()
         run: |
           echo "::error::Deployment failed. Check the logs above."
-          # Optional: add a Slack / email notification here
